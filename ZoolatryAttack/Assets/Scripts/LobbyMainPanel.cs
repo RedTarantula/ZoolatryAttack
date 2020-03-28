@@ -12,8 +12,12 @@ public class LobbyMainPanel : MonoBehaviourPunCallbacks
     // Needs to lock inputs/buttons on the right time
     // Needs feedback on connecting process
 
+    [Header("Multiplayer Connecting Buttons")]
+    public Button[] allButtons;
+
     [Header("Main Menu Panel")]
     public GameObject MainMenuPanel;
+    public MultiplayerStatusPanel mpS;
 
     [Header("Login Panel")]
     public GameObject LoginPanel;
@@ -59,15 +63,11 @@ public class LobbyMainPanel : MonoBehaviourPunCallbacks
         PlayerNameInput.text = "Player " + UnityEngine.Random.Range(1000,10000);
     }
 
-    public override void OnJoinRandomFailed(short returnCode,string message)
-    {
-        string roomName = PhotonNetwork.LocalPlayer.NickName +"'s Room";
-        RoomOptions options = new RoomOptions {MaxPlayers = 2};
-        PhotonNetwork.CreateRoom(roomName,options,null);
-    }
+    #region On Callbacks
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         GameObject entry = null;
+        MultiplayerButtonsState(true);
 
         if (newPlayer.ActorNumber == 1)
         {
@@ -81,12 +81,19 @@ public class LobbyMainPanel : MonoBehaviourPunCallbacks
         entry.GetComponent<PlayerLobby>().Initialize(newPlayer.ActorNumber,newPlayer.NickName);
 
         playerListEntries.Add(newPlayer.ActorNumber,entry);
+    }
 
-
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        playerListEntries[otherPlayer.ActorNumber].GetComponent<PlayerLobby>().PlayerNameText.text = "Connecting";
+        playerListEntries[otherPlayer.ActorNumber].GetComponent<PlayerLobby>().PlayerNameText.fontStyle = FontStyle.Italic;
+        playerListEntries.Remove(otherPlayer.ActorNumber);
     }
     public override void OnConnectedToMaster()
     {
+        mpS.SetStatus("Logged in as " + PhotonNetwork.LocalPlayer.NickName);
         this.SetActivePanel(SelectionPanel.name);
+        MultiplayerButtonsState(true);
     }
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
@@ -95,6 +102,105 @@ public class LobbyMainPanel : MonoBehaviourPunCallbacks
         UpdateCachedRoomList(roomList);
         UpdateRoomListView();
     }
+
+    public override void OnJoinRoomFailed(short returnCode,string message)
+    {
+        MultiplayerButtonsState(true);
+    }
+    public override void OnJoinedRoom()
+    {
+        SetActivePanel(InsideRoomPanel.name);
+        MultiplayerButtonsState(true);
+
+        if(PhotonNetwork.LocalPlayer.ActorNumber == 1)
+        {
+        mpS.SetStatus("Created room");
+        }
+            else
+        {
+        mpS.SetStatus("Joined room");
+        }
+
+        StartGameButton.gameObject.SetActive(PhotonNetwork.LocalPlayer.ActorNumber == 1);
+
+        if (playerListEntries == null)
+        {
+            playerListEntries = new Dictionary<int,GameObject>();
+        }
+
+        foreach (Player p in PhotonNetwork.PlayerList)
+        {
+            GameObject entry = null;
+
+            if (p.ActorNumber == 1)
+            {
+                entry = player1Entry;
+            }
+            else
+            {
+                entry = player2Entry;
+            }
+
+            entry.GetComponent<PlayerLobby>().Initialize(p.ActorNumber,p.NickName);
+
+            playerListEntries.Add(p.ActorNumber,entry);
+        }
+
+        //StartGameButton.gameObject.SetActive(CheckPlayersReady());
+
+        Hashtable props = new Hashtable
+            {
+                {Zoolatry.PLAYER_LOADED_LEVEL, false}
+            };
+        PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+    }
+    public void OnLeaveMultiplayer()
+    {
+        if (PhotonNetwork.InLobby)
+        {
+            PhotonNetwork.LeaveLobby();
+        }
+        PhotonNetwork.Disconnect();
+        SetActivePanel(MainMenuPanel.name);
+        mpS.gameObject.SetActive(false);
+    }
+    public override void OnLeftLobby()
+    {
+        cachedRoomList.Clear();
+        ClearRoomListView();
+    }
+    public override void OnLeftRoom()
+    {
+        mpS.SetStatus("Left room");
+        SetActivePanel(SelectionPanel.name);
+
+        foreach (GameObject entry in playerListEntries.Values)
+        {
+            entry.GetComponent<PlayerLobby>().PlayerNameText.text = "Connecting";
+            entry.GetComponent<PlayerLobby>().PlayerNameText.fontStyle = FontStyle.Italic;
+        }
+
+        playerListEntries.Clear();
+        playerListEntries = null;
+    }
+    #endregion
+
+    #region On Fails
+    public override void OnJoinRandomFailed(short returnCode,string message)
+    {
+        mpS.SetStatus("Failed joining random");
+        string roomName = PhotonNetwork.LocalPlayer.NickName +"'s Room";
+        RoomOptions options = new RoomOptions {MaxPlayers = 2};
+        PhotonNetwork.CreateRoom(roomName,options,null);
+    }
+    public override void OnCreateRoomFailed(short returnCode,string message)
+    {
+        mpS.SetStatus("Failed creating room");
+        MultiplayerButtonsState(true);
+    }
+    #endregion
+
+    #region Utilities
     private void ClearRoomListView()
     {
         foreach (GameObject entry in roomListEntries.Values)
@@ -131,43 +237,6 @@ public class LobbyMainPanel : MonoBehaviourPunCallbacks
             }
         }
     }
-    public override void OnJoinedRoom()
-    {
-        SetActivePanel(InsideRoomPanel.name);
-
-        StartGameButton.gameObject.SetActive(PhotonNetwork.LocalPlayer.ActorNumber == 1);
-
-        if (playerListEntries == null)
-        {
-            playerListEntries = new Dictionary<int,GameObject>();
-        }
-
-        foreach (Player p in PhotonNetwork.PlayerList)
-        {
-            GameObject entry = null;
-
-            if (p.ActorNumber == 1)
-            {
-                entry = player1Entry;
-            }
-            else
-            {
-                entry = player2Entry;
-            }
-
-            entry.GetComponent<PlayerLobby>().Initialize(p.ActorNumber,p.NickName);
-
-            playerListEntries.Add(p.ActorNumber,entry);
-        }
-
-        //StartGameButton.gameObject.SetActive(CheckPlayersReady());
-
-        Hashtable props = new Hashtable
-            {
-                {Zoolatry.PLAYER_LOADED_LEVEL, false}
-            };
-        PhotonNetwork.LocalPlayer.SetCustomProperties(props);
-    }
     private void UpdateRoomListView()
     {
         foreach (RoomInfo info in cachedRoomList.Values)
@@ -181,20 +250,6 @@ public class LobbyMainPanel : MonoBehaviourPunCallbacks
             roomListEntries.Add(info.Name,entry);
         }
     }
-
-
-    public override void OnPlayerLeftRoom(Player otherPlayer)
-    {
-        playerListEntries[otherPlayer.ActorNumber].GetComponent<PlayerLobby>().PlayerNameText.text = "Connecting";
-        playerListEntries[otherPlayer.ActorNumber].GetComponent<PlayerLobby>().PlayerNameText.fontStyle = FontStyle.Italic;
-        playerListEntries.Remove(otherPlayer.ActorNumber);
-    }
-    #region Menu Interactions
-    public void OnQuickJoinClicked()
-    {
-        SetActivePanel(JoinRandomRoomPanel.name);
-        PhotonNetwork.JoinRandomRoom();
-    }
     private void SetActivePanel(string activePanel)
     {
         MainMenuPanel.SetActive(activePanel.Equals(MainMenuPanel.name));
@@ -205,10 +260,34 @@ public class LobbyMainPanel : MonoBehaviourPunCallbacks
         RoomListPanel.SetActive(activePanel.Equals(RoomListPanel.name));    // UI should call OnRoomListButtonClicked() to activate this
         InsideRoomPanel.SetActive(activePanel.Equals(InsideRoomPanel.name));
     }
+
+    void MultiplayerButtonsState(bool state)
+    {
+        PlayerNameInput.interactable = state;
+        foreach (Button b in allButtons)
+        {
+            b.interactable = state;
+        }
+    }
+    #endregion
+
+    #region On Clicked
+    public void OnQuickJoinClicked()
+    {
+        
+        mpS.SetStatus("Joining random lobby");
+        MultiplayerButtonsState(false);
+        SetActivePanel(JoinRandomRoomPanel.name);
+        PhotonNetwork.JoinRandomRoom();
+    }
+
     public void OnLoginClicked()
     {
         string playerName = PlayerNameInput.text;
 
+        mpS.SetStatus("Logging in");
+
+        MultiplayerButtonsState(false);
         if (!playerName.Equals(""))
         {
             PhotonNetwork.LocalPlayer.NickName = playerName;
@@ -221,66 +300,46 @@ public class LobbyMainPanel : MonoBehaviourPunCallbacks
     }
     public void OnCreateRoomClicked()
     {
-
+        mpS.SetStatus("Creating room");
+        MultiplayerButtonsState(false);
         string roomName = PhotonNetwork.LocalPlayer.NickName +"'s Room";
         RoomOptions options = new RoomOptions {MaxPlayers = 2};
-        Debug.Log(roomName);
         PhotonNetwork.CreateRoom(roomName,options,null);
     }
-    public void GoToMultiplayer()
+    public void OnMultiplayerClicked()
     {
+        mpS.SetStatus("Not logged in");
         SetActivePanel(LoginPanel.name);
+
+        mpS.gameObject.SetActive(true) ;
     }
     public void OnRoomListClicked()
     {
+        mpS.SetStatus("Listing rooms");
         if (!PhotonNetwork.InLobby)
         {
             PhotonNetwork.JoinLobby();
         }
         SetActivePanel(RoomListPanel.name);
     }
-    public void OnLeaveMultiplayer()
-    {
-        if (PhotonNetwork.InLobby)
-            {
-                PhotonNetwork.LeaveLobby();
-            }
-        PhotonNetwork.Disconnect();
-        SetActivePanel(MainMenuPanel.name);
-    }
-
-    public override void OnLeftLobby()
-    {
-        cachedRoomList.Clear();
-        ClearRoomListView();
-    }
-    public override void OnLeftRoom()
-    {
-        SetActivePanel(SelectionPanel.name);
-
-        foreach (GameObject entry in playerListEntries.Values)
-        {
-            entry.GetComponent<PlayerLobby>().PlayerNameText.text = "Connecting";
-            entry.GetComponent<PlayerLobby>().PlayerNameText.fontStyle = FontStyle.Italic;
-        }
-
-        playerListEntries.Clear();
-        playerListEntries = null;
-    }
-    public void OnLeaveRoom()
+    public void OnLeaveRoomClicked()
     {
         PhotonNetwork.LeaveRoom();
     }
-    public void OnReturnToSelectionPanel()
+    public void OnReturnToSelectionPanelClicked()
     {
         SetActivePanel(SelectionPanel.name);
     }
-    public void OnStartGameButtonClicked()
-        {
-            PhotonNetwork.CurrentRoom.IsOpen = false;
-            PhotonNetwork.CurrentRoom.IsVisible = false;
 
-            PhotonNetwork.LoadLevel("GameTest");
-        }
+    public void OnStartGameButtonClicked()
+    {
+        mpS.SetStatus("Starting game");
+        PhotonNetwork.CurrentRoom.IsOpen = false;
+        PhotonNetwork.CurrentRoom.IsVisible = false;
+
+        PhotonNetwork.LoadLevel("GameTest");
+    }
+
     #endregion
+
 }

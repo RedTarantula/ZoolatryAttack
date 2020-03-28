@@ -14,7 +14,6 @@ public class PlayerBase : MonoBehaviour
 
     [Header("Move Values")]
     public float speed = .2f;
-    float speedR = 300f;
 
     [Header("Other Values")]
     public bool isGrounded;
