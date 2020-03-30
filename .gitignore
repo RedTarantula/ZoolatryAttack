@@ -29,6 +29,12 @@ sysinfo.txt
 .DS_Store
 
 ###
+# Compacted Builds
+###
+*.zip
+*.rar
+
+###
 # OS generated
 ###
 .DS_Store
