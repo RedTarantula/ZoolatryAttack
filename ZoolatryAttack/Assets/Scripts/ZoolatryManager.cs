@@ -12,6 +12,10 @@ public class ZoolatryManager : MonoBehaviourPunCallbacks
     public Transform spawnerPlayer1;
     public Transform spawnerPlayer2;
 
+    public float chickyHP;
+    public float piggyHP;
+
+
     private void Awake()
     {
         instance = this;
@@ -27,11 +31,52 @@ public class ZoolatryManager : MonoBehaviourPunCallbacks
                 {Zoolatry.PLAYER_LOADED_LEVEL, true}
             };
             PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+
+        chickyHP = Zoolatry.CHICKY_HP_MAX;
+        piggyHP = Zoolatry.PIGGY_HP_MAX;
     }
     public override void OnDisable()
     {
         base.OnDisable();
     }
+
+    [PunRPC]
+    public void DamagePlayer(Zoolatry.PLAYER_CHARACTER character,float damage)
+    {
+        if (character == Zoolatry.PLAYER_CHARACTER.Chicky)
+        {
+            chickyHP -= damage;
+        }
+        else if (character == Zoolatry.PLAYER_CHARACTER.Piggy)
+        {
+            piggyHP -= damage;
+        }
+    }
+    [PunRPC]
+    public void HealPlayerPercentage(Zoolatry.PLAYER_CHARACTER character,float percentage)
+    {
+        if (character == Zoolatry.PLAYER_CHARACTER.Chicky)
+        {
+            chickyHP += Zoolatry.CHICKY_HP_MAX * percentage;
+            if (chickyHP > Zoolatry.CHICKY_HP_MAX)
+            {
+                chickyHP = Zoolatry.CHICKY_HP_MAX;
+            }
+        }
+        else if (character == Zoolatry.PLAYER_CHARACTER.Piggy)
+        {
+            piggyHP += Zoolatry.PIGGY_HP_MAX * percentage;
+            if (piggyHP > Zoolatry.PIGGY_HP_MAX)
+            {
+                piggyHP = Zoolatry.PIGGY_HP_MAX;
+            }
+        }
+    }
+
+
+
+
+
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
     {
          if (changedProps.ContainsKey(Zoolatry.PLAYER_LOADED_LEVEL))

@@ -4,7 +4,7 @@ using Photon.Pun.UtilityScripts;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Photon.Pun;
 
-public class PlayerBase : MonoBehaviour
+public abstract class PlayerBase : MonoBehaviour
 {
     [Header("References")]
     public Transform groundCheck;
@@ -13,7 +13,9 @@ public class PlayerBase : MonoBehaviour
     CharacterController ctrl;
 
     [Header("Move Values")]
-    public float speed = .2f;
+    public float speed;
+    public int magazineBullets;
+    public int ammoCarrying;
 
     [Header("Other Values")]
     public bool isGrounded;
@@ -32,6 +34,14 @@ public class PlayerBase : MonoBehaviour
         photonView = GetComponent<PhotonView>();
         ctrl = GetComponent<CharacterController>();
     }
+
+    private void Start()
+    {
+        StartLocalVariables();
+    }
+
+    public abstract void StartLocalVariables();
+
     private void Update()
     {
         if (!photonView.IsMine)
