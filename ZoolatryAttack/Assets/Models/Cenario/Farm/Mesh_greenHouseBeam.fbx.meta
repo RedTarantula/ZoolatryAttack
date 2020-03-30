@@ -1,38 +1,14 @@
 fileFormatVersion: 2
-guid: 7b1d1f93dd8a45d4a9d8100835b75c99
+guid: 7318ebae96e9f1b49924850b14726d40
 ModelImporter:
   serializedVersion: 19300
-  internalIDToNameTable:
-  - first:
-      74: -5053827218218222298
-    second: Shooting
-  - first:
-      74: -4759078611176051166
-    second: Reloading
-  - first:
-      74: -9121621101649706817
-    second: Running
-  - first:
-      74: -1610863427237328480
-    second: Walking
-  - first:
-      74: 7070496700886754952
-    second: Getting Hitted
-  - first:
-      74: -7601885785730071545
-    second: HoldingCagesPose
-  - first:
-      74: -6775884027671718737
-    second: Idle1
-  - first:
-      74: 2562888284788868603
-    second: Idle2
+  internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Piggy.001
-    second: {fileID: 2100000, guid: f9bc59c37c9537d4ca6e3fac4b400ce8, type: 2}
+      name: greenhouse
+    second: {fileID: 2100000, guid: 43ca6e4f53150e449b7ecdccc6bc176b, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

@@ -1,38 +1,14 @@
 fileFormatVersion: 2
-guid: 7b1d1f93dd8a45d4a9d8100835b75c99
+guid: 8329b277c3559fc4f8aea2f8b166db02
 ModelImporter:
   serializedVersion: 19300
-  internalIDToNameTable:
-  - first:
-      74: -5053827218218222298
-    second: Shooting
-  - first:
-      74: -4759078611176051166
-    second: Reloading
-  - first:
-      74: -9121621101649706817
-    second: Running
-  - first:
-      74: -1610863427237328480
-    second: Walking
-  - first:
-      74: 7070496700886754952
-    second: Getting Hitted
-  - first:
-      74: -7601885785730071545
-    second: HoldingCagesPose
-  - first:
-      74: -6775884027671718737
-    second: Idle1
-  - first:
-      74: 2562888284788868603
-    second: Idle2
+  internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Piggy.001
-    second: {fileID: 2100000, guid: f9bc59c37c9537d4ca6e3fac4b400ce8, type: 2}
+      name: planks
+    second: {fileID: 2100000, guid: de5767a7da3ee264989f72a73ad20d28, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
