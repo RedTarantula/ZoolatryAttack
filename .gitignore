@@ -31,8 +31,8 @@ sysinfo.txt
 ###
 # Compacted Builds
 ###
-*.zip
-*.rar
+[Bb]uilds/
+!*.zip
 
 ###
 # OS generated
