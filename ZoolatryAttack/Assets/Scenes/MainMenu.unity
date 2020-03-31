@@ -1245,6 +1245,7 @@ MonoBehaviour:
   - {fileID: 523651801}
   - {fileID: 858641527}
   MainMenuPanel: {fileID: 473414566}
+  MultiplayerButton: {fileID: 2039245478}
   mpS: {fileID: 920679941}
   LoginPanel: {fileID: 713311809}
   PlayerNameInput: {fileID: 1153298123}
@@ -6108,7 +6109,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 2039245479}
   m_OnClick:
     m_PersistentCalls:

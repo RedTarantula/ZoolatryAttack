@@ -40,6 +40,18 @@ public class ZoolatryManager : MonoBehaviourPunCallbacks
         base.OnDisable();
     }
 
+
+    public override void OnLeftRoom()
+    {
+        PhotonNetwork.LoadLevel("MainMenu");
+    }
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        PhotonNetwork.LeaveRoom();
+        PhotonNetwork.LoadLevel("MainMenu");
+    }
+
+
     [PunRPC]
     public void DamagePlayer(Zoolatry.PLAYER_CHARACTER character,float damage)
     {
