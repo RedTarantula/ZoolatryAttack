@@ -657,10 +657,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2515720258697859500}
   - component: {fileID: 7237047095581819315}
-  - component: {fileID: 9046899807117356284}
+  - component: {fileID: 6159685047093733017}
   m_Layer: 11
   m_Name: AmmoPickup
-  m_TagString: Untagged
+  m_TagString: AmmoPickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -673,7 +673,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9157153336377950992}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.537, y: 1.0770098, z: 0.873}
+  m_LocalPosition: {x: 0, y: 1.0770098, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1166954476221745137}
@@ -689,12 +689,12 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9157153336377950992}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.5552726, y: 0.5841558, z: 0.5552726}
   m_Center: {x: 0, y: 0.014441609, z: 0}
---- !u!114 &9046899807117356284
+--- !u!114 &6159685047093733017
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -703,7 +703,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 9157153336377950992}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 927cff59e04471b469e6c5abf29673d4, type: 3}
+  m_Script: {fileID: 11500000, guid: 394be8d369e06124999c9dac563b8712, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: {x: 0, y: 2, z: 0}

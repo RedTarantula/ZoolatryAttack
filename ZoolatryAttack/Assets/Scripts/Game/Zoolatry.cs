@@ -7,8 +7,16 @@ public class Zoolatry
     public const string PLAYER_LOADED_LEVEL = "PlayerLoadedLevel";
 
     public static int PANEL_TO_BE_LOADED = 0;
+    
+    public const float PICKUP_SPAWNER_TIMER_MIN = 5f; // seconds
+    public const float PICKUP_SPAWNER_TIMER_MAX = 10f; // seconds
+    
+    public const float PICKUP_HEALTH_PERCENT = .5f;
+    public const float PICKUP_AMMO_PERCENT = .5f;
 
 
+    //---------
+    
     public const float CHICKY_HP_MAX = 100f;
     public const float CHICKY_SPEED_BASE = .3f;
 
@@ -43,4 +51,5 @@ public class Zoolatry
 
     public enum PLAYER_CHARACTER {Chicky, Piggy};
     public enum BULLET_TARGET {Players,Enemies,All};
+    public enum PICKUP_TYPE { Health, Ammo};
 }

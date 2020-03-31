@@ -14,6 +14,8 @@ public abstract class PlayerBase : MonoBehaviour
     public Transform shootingPoint;
     public GameObject projectilePrefab;
     public Text debugStatusTxt;
+    public Image healthBar;
+    public ZoolatryManager zm;
     CharacterController ctrl;
 
     [Header("Move Values")]
@@ -21,6 +23,7 @@ public abstract class PlayerBase : MonoBehaviour
     public int magazineBullets;
     public int magazineCapacity;
     public int ammoCarrying;
+    public float health;
 
     [Header("Other Values")]
     public bool isGrounded;
@@ -35,6 +38,7 @@ public abstract class PlayerBase : MonoBehaviour
 
     public float playerShootSpeed;
     public float playerReloadTimer;
+    public float playerMaxhealth;
     bool reloading=false;
 
     float shootCooldown = 0f;
@@ -54,7 +58,6 @@ public abstract class PlayerBase : MonoBehaviour
 
     public abstract void StartLocalVariables();
 
-
     public void LeaveTheGame()
     {
         Zoolatry.PANEL_TO_BE_LOADED = 1;
@@ -70,13 +73,47 @@ public abstract class PlayerBase : MonoBehaviour
     }
 
     [PunRPC]
+    public void SetHealth(float h)
+    {
+        health = h;
+    }
+
+    public void HealPercent(float h)
+    {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+
+        float newHealth = health + (h*playerMaxhealth);
+        if (newHealth > playerMaxhealth)
+        {
+            newHealth = playerMaxhealth;
+        }
+        photonView.RPC("SetHealth",RpcTarget.All,newHealth);
+    }
+    public void DamageFloat(float d)
+    {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+
+        float newHealth = health - d;
+        photonView.RPC("SetHealth",RpcTarget.All,newHealth);
+    }
+
+    [PunRPC]
     public void DebugStatusText(string message)
     {
         debugStatusTxt.text = message;
     }
-
+    public void Initialize(ZoolatryManager zManager)
+    {
+        zm = zManager;
+    }
     public abstract void ShootProjectiles(Vector3 pos,Vector3 dir,float lag);
-
+    public abstract void PickupReaction(Zoolatry.PICKUP_TYPE pickupType);
     private void Update()
     {
         if (!photonView.IsMine)
@@ -169,6 +206,7 @@ public abstract class PlayerBase : MonoBehaviour
 
     private void FixedUpdate()
     {
+        healthBar.fillAmount = health / playerMaxhealth;
         if (!photonView.IsMine)
         {
             return;

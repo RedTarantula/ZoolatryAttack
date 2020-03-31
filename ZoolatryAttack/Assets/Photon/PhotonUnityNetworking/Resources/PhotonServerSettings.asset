@@ -36,5 +36,7 @@ MonoBehaviour:
   - HealPlayerPercentage
   - Shoot
   - DebugStatusText
+  - SetPlayersHealth
+  - SetHealth
   DisableAutoOpenWizard: 1
   ShowSettings: 1

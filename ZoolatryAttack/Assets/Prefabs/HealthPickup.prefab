@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8317324587557212984}
   - component: {fileID: 1990238118240598954}
   - component: {fileID: 238684391283235058}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7400545688018400772}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cross
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3540636675717209005}
   - component: {fileID: 6551902457948469052}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -214,7 +214,7 @@ GameObject:
   - component: {fileID: 1399556134665259694}
   - component: {fileID: 5910743527700358800}
   - component: {fileID: 8457036294409203148}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -292,10 +292,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2348355647497224103}
   - component: {fileID: 4492869668305064993}
-  - component: {fileID: 2417594028037678954}
-  m_Layer: 0
+  - component: {fileID: 3980743973387721186}
+  m_Layer: 11
   m_Name: HealthPickup
-  m_TagString: Untagged
+  m_TagString: HealthPickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -308,7 +308,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9037059012566019355}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.118, z: 0.141}
+  m_LocalPosition: {x: 0, y: 1.118, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7400545688018400772}
@@ -324,12 +324,12 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9037059012566019355}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.5552726, y: 0.5841558, z: 0.5552726}
   m_Center: {x: 0, y: 0.014441609, z: 0}
---- !u!114 &2417594028037678954
+--- !u!114 &3980743973387721186
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -338,7 +338,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 9037059012566019355}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 927cff59e04471b469e6c5abf29673d4, type: 3}
+  m_Script: {fileID: 11500000, guid: 394be8d369e06124999c9dac563b8712, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: {x: 0, y: 2, z: 0}
