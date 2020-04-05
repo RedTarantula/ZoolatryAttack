@@ -30,9 +30,8 @@ MonoBehaviour:
   StartInOfflineMode: 0
   RpcList:
   - ClickRpc
-  - DestroyRpc
   - DamagePlayer
-  - HealPlayer
+  - DestroyRpc
   - HealPlayerPercentage
   DisableAutoOpenWizard: 1
   ShowSettings: 0
