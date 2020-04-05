@@ -63,6 +63,19 @@ public class LobbyMainPanel : MonoBehaviourPunCallbacks
         PlayerNameInput.text = "Player " + UnityEngine.Random.Range(1000,10000);
     }
 
+    private void Start()
+    {
+        if(Zoolatry.PANEL_TO_BE_LOADED == 1)
+        {
+            SetActivePanel(SelectionPanel.name);
+        }
+        else
+        {
+            SetActivePanel(MainMenuPanel.name);
+        }
+        Zoolatry.PANEL_TO_BE_LOADED = 0;
+    }
+
     #region On Callbacks
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
@@ -104,6 +117,10 @@ public class LobbyMainPanel : MonoBehaviourPunCallbacks
     }
 
     public override void OnJoinRoomFailed(short returnCode,string message)
+    {
+        MultiplayerButtonsState(true);
+    }
+    public override void OnJoinedLobby()
     {
         MultiplayerButtonsState(true);
     }
@@ -172,6 +189,7 @@ public class LobbyMainPanel : MonoBehaviourPunCallbacks
     public override void OnLeftRoom()
     {
         mpS.SetStatus("Left room");
+        MultiplayerButtonsState(false);
         SetActivePanel(SelectionPanel.name);
 
         foreach (GameObject entry in playerListEntries.Values)
