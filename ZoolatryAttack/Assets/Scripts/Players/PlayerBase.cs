@@ -16,6 +16,7 @@ public abstract class PlayerBase : MonoBehaviour
     public Text debugStatusTxt;
     public Image healthBar;
     public ZoolatryManager zm;
+    public PlayerInfoHUD hud;
     CharacterController ctrl;
 
     [Header("Move Values")]
@@ -54,6 +55,12 @@ public abstract class PlayerBase : MonoBehaviour
     private void Start()
     {
         StartLocalVariables();
+        hud = GameObject.Find("PlayerInfoHUD").GetComponent<PlayerInfoHUD>();
+        if(photonView.IsMine)
+        {
+            hud.UpdateHudHP(health,playerMaxhealth);
+            hud.UpdateHudAmmo(magazineBullets,magazineCapacity,ammoCarrying);
+        }
     }
 
     public abstract void StartLocalVariables();
@@ -70,12 +77,33 @@ public abstract class PlayerBase : MonoBehaviour
     {
         float lag = (float) (PhotonNetwork.Time - info.SentServerTime);
         ShootProjectiles(pos,model.transform.forward,lag);
+        if(photonView.IsMine)
+        {
+            hud.UpdateHudAmmo(magazineBullets,magazineCapacity,ammoCarrying);
+        }
+
     }
 
     [PunRPC]
     public void SetHealth(float h)
     {
         health = h;
+        healthBar.fillAmount = health / playerMaxhealth;
+        healthBar.fillAmount = health / playerMaxhealth;
+        if(photonView.IsMine)
+        {
+            hud.UpdateHudHP(health,playerMaxhealth);
+        }
+    }
+
+    public void SetAmmoInv(int ammount)
+    {
+        ammoCarrying = ammount;
+        
+        if(photonView.IsMine)
+        {
+            hud.UpdateHudAmmo(magazineBullets,magazineCapacity,ammoCarrying);
+        }
     }
 
     public void HealPercent(float h)
@@ -199,14 +227,19 @@ public abstract class PlayerBase : MonoBehaviour
 
         int toBeReloaded = magazineCapacity - magazineBullets;
         if (toBeReloaded > ammoCarrying)
-            toBeReloaded = magazineCapacity;
+            toBeReloaded = ammoCarrying;
 
-        ammoCarrying -= magazineBullets = toBeReloaded;
+        ammoCarrying -= magazineBullets += toBeReloaded;
+        
+
+        if(photonView.IsMine)
+        {
+            hud.UpdateHudAmmo(magazineBullets,magazineCapacity,ammoCarrying);
+        }
     }
 
     private void FixedUpdate()
     {
-        healthBar.fillAmount = health / playerMaxhealth;
         if (!photonView.IsMine)
         {
             return;

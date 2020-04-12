@@ -292,6 +292,7 @@ MonoBehaviour:
   debugStatusTxt: {fileID: 6547372326551487600}
   healthBar: {fileID: 5288936023989959841}
   zm: {fileID: 0}
+  hud: {fileID: 0}
   speed: 0
   magazineBullets: 0
   magazineCapacity: 0

@@ -41,7 +41,7 @@ public class Bullet : MonoBehaviour
 
     public void InitializeBullet(float reach, float damage, float speed, Zoolatry.BULLET_TARGET target, float lag)
     {
-        Debug.Log($"Initialized bullet with forward vector being <{transform.forward.x}> x <{transform.forward.y}> x <{transform.forward.z}>");
+        //Debug.Log($"Initialized bullet with forward vector being <{transform.forward.x}> x <{transform.forward.y}> x <{transform.forward.z}>");
         this.reach = reach;
         this.damage = damage;
         this.target = target;

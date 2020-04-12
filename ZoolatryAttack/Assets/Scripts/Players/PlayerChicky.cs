@@ -30,7 +30,8 @@ public class PlayerChicky : PlayerBase
 
         if (pickupType == Zoolatry.PICKUP_TYPE.Ammo)
         {
-            ammoCarrying = Zoolatry.CHICKY_AMMO_MAX;
+            SetAmmoInv(Zoolatry.CHICKY_AMMO_MAX);
+
         }
         else if (pickupType == Zoolatry.PICKUP_TYPE.Health)
         {

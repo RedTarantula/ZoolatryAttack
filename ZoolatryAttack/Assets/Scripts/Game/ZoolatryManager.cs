@@ -12,7 +12,6 @@ public class ZoolatryManager : MonoBehaviourPunCallbacks
     public Transform spawnerPlayer1;
     public Transform spawnerPlayer2;
 
-
     private void Awake()
     {
         instance = this;
@@ -41,6 +40,7 @@ public class ZoolatryManager : MonoBehaviourPunCallbacks
     }
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
+        Zoolatry.PANEL_TO_BE_LOADED = 1;
         PhotonNetwork.LeaveRoom();
         PhotonNetwork.LoadLevel("MainMenu");
     }
@@ -64,6 +64,7 @@ public class ZoolatryManager : MonoBehaviourPunCallbacks
 
     void SpawnPlayer()
     {
+        Debug.Log($"Local player: {PhotonNetwork.LocalPlayer.ActorNumber}");
         if (PhotonNetwork.LocalPlayer.ActorNumber == 1)
         {
             PhotonNetwork.Instantiate("PiggyPlayer",spawnerPlayer1.position,Quaternion.identity).GetComponent<PlayerBase>().Initialize(this);

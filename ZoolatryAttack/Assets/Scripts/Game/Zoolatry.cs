@@ -18,7 +18,7 @@ public class Zoolatry
     //---------
     
     public const float CHICKY_HP_MAX = 100f;
-    public const float CHICKY_SPEED_BASE = .3f;
+    public const float CHICKY_SPEED_BASE = .1f;
 
     public const int CHICKY_AMMO_MAX = 320;
     public const int CHICKY_MAGAZINE_CAPACITY = 20;

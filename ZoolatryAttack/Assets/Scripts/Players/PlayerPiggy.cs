@@ -28,7 +28,7 @@ public class PlayerPiggy : PlayerBase
     {
         if (pickupType == Zoolatry.PICKUP_TYPE.Ammo)
         {
-            ammoCarrying = Zoolatry.PIGGY_AMMO_MAX;
+            SetAmmoInv(Zoolatry.PIGGY_AMMO_MAX);
         }
         else if (pickupType == Zoolatry.PICKUP_TYPE.Health)
         {
