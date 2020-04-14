@@ -192,10 +192,13 @@ public class LobbyMainPanel : MonoBehaviourPunCallbacks
         MultiplayerButtonsState(false);
         SetActivePanel(SelectionPanel.name);
 
-        foreach (GameObject entry in playerListEntries.Values)
+        if (playerListEntries.Count > 0)
         {
-            entry.GetComponent<PlayerLobby>().PlayerNameText.text = "Connecting";
-            entry.GetComponent<PlayerLobby>().PlayerNameText.fontStyle = FontStyle.Italic;
+            foreach (GameObject entry in playerListEntries.Values)
+            {
+                entry.GetComponent<PlayerLobby>().PlayerNameText.text = "Connecting";
+                entry.GetComponent<PlayerLobby>().PlayerNameText.fontStyle = FontStyle.Italic;
+            }
         }
 
         playerListEntries.Clear();

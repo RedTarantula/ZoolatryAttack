@@ -8,6 +8,9 @@ TagManager:
   - AmmoPickup
   - PlayerPiggy
   - PlayerChicky
+  - CageBase
+  - CagePickup
+  - DeliveryPoint
   layers:
   - Default
   - TransparentFX
@@ -21,8 +24,8 @@ TagManager:
   - PlayerBullets
   - Players
   - Pickups
-  - 
-  - 
+  - Cages
+  - DeliveryPoint
   - 
   - 
   - 

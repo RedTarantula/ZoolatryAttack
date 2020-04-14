@@ -30,6 +30,36 @@ Transform:
   m_Father: {fileID: 589749620815741229}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2224594306800036179
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3710822352169814326}
+  m_Layer: 10
+  m_Name: CageHoldingPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3710822352169814326
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2224594306800036179}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.124000035, y: 1.3440001, z: 1.004}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7209352084429215480}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2469360425783693671
 GameObject:
   m_ObjectHideFlags: 0
@@ -303,6 +333,7 @@ MonoBehaviour:
   healthBar: {fileID: 8706549070916135269}
   zm: {fileID: 0}
   hud: {fileID: 0}
+  cageHoldPos: {fileID: 3710822352169814326}
   speed: 0
   magazineBullets: 0
   magazineCapacity: 0
@@ -312,6 +343,8 @@ MonoBehaviour:
   playerShootSpeed: 0
   playerReloadTimer: 0
   playerMaxhealth: 0
+  holdingCage: 0
+  touchingCage: {fileID: 0}
 --- !u!143 &230786430814991486
 CharacterController:
   m_ObjectHideFlags: 0

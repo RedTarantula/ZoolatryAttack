@@ -17,6 +17,7 @@ public abstract class PlayerBase : MonoBehaviour
     public Image healthBar;
     public ZoolatryManager zm;
     public PlayerInfoHUD hud;
+    public Transform cageHoldPos;
     CharacterController ctrl;
 
     [Header("Move Values")]
@@ -46,6 +47,10 @@ public abstract class PlayerBase : MonoBehaviour
     float reloadTimer = 0f;
 
     private PhotonView photonView;
+
+    public bool holdingCage;
+    public GameObject touchingCage;
+
     private void Awake()
     {
         photonView = GetComponent<PhotonView>();
@@ -61,6 +66,11 @@ public abstract class PlayerBase : MonoBehaviour
             hud.UpdateHudHP(health,playerMaxhealth);
             hud.UpdateHudAmmo(magazineBullets,magazineCapacity,ammoCarrying);
         }
+        if(photonView.IsMine)
+        {
+            Camera.main.GetComponent<FollowPlayer>().pos = transform;
+        }
+
     }
 
     public abstract void StartLocalVariables();
@@ -180,6 +190,18 @@ public abstract class PlayerBase : MonoBehaviour
         if (!PhotonNetwork.InRoom)
         { return; }
 
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            if(!holdingCage && touchingCage != null)
+            {
+                PickupCage();
+            }
+            else if (holdingCage)
+            {
+                ReleaseCage();
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.Space) && shootCooldown <= 0 && magazineBullets > 0 && !reloading)
         {
             photonView.RPC("DebugStatusText",RpcTarget.All,"Shooting...");
@@ -235,6 +257,50 @@ public abstract class PlayerBase : MonoBehaviour
         if(photonView.IsMine)
         {
             hud.UpdateHudAmmo(magazineBullets,magazineCapacity,ammoCarrying);
+        }
+    }
+
+    public void PickupCage()
+    {
+        Debug.Log("Picked up cage");
+        holdingCage = true;
+
+        touchingCage.transform.SetParent(cageHoldPos);
+        touchingCage.transform.localRotation = Quaternion.Euler(0,180,0);
+        touchingCage.transform.localPosition = new Vector3(0,0,0);
+        touchingCage.GetComponent<CageBaseScript>().beingHeld = true;
+    }
+
+    public void ReleaseCage()
+    {
+        Debug.Log("Released cage");
+        touchingCage.GetComponent<CageBaseScript>().beingHeld = false;
+        touchingCage.transform.SetParent(null);
+        touchingCage = null;
+        holdingCage = false;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if(touchingCage != null || holdingCage)
+        { return; }
+
+        if(other.gameObject.CompareTag("CagePickup"))
+        {
+            touchingCage = other.gameObject.transform.root.gameObject;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(touchingCage == null || holdingCage)
+        { return; }
+
+        
+        Debug.Log("Exited trigger with: " + other.gameObject.name);
+        if(other.gameObject.CompareTag("CagePickup"))
+        {
+            touchingCage = null;
         }
     }
 

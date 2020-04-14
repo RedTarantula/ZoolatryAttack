@@ -293,6 +293,7 @@ MonoBehaviour:
   healthBar: {fileID: 5288936023989959841}
   zm: {fileID: 0}
   hud: {fileID: 0}
+  cageHoldPos: {fileID: 0}
   speed: 0
   magazineBullets: 0
   magazineCapacity: 0
@@ -302,6 +303,8 @@ MonoBehaviour:
   playerShootSpeed: 0
   playerReloadTimer: 0
   playerMaxhealth: 0
+  holdingCage: 0
+  touchingCage: {fileID: 0}
 --- !u!143 &4307474183384354498
 CharacterController:
   m_ObjectHideFlags: 0
