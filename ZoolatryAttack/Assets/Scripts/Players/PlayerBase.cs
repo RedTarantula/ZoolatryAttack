@@ -50,6 +50,7 @@ public abstract class PlayerBase : MonoBehaviour
 
     public bool holdingCage;
     public GameObject touchingCage;
+    public Zoolatry.PLAYER_CHARACTER character;
 
     private void Awake()
     {
@@ -262,13 +263,26 @@ public abstract class PlayerBase : MonoBehaviour
 
     public void PickupCage()
     {
-        Debug.Log("Picked up cage");
+
+        CageBaseScript cage = touchingCage.GetComponent<CageBaseScript>();
+
+        if((character == Zoolatry.PLAYER_CHARACTER.Chicky && touchingCage.GetComponent<CageBaseScript>().cagetype == Zoolatry.CAGE_TYPE.Medium)||touchingCage.GetComponent<CageBaseScript>().cagetype == Zoolatry.CAGE_TYPE.Large)
+        {
+            return;
+        }
+        
+        Debug.Log($"Picked up a {cage.cagetype} cage");
+
         holdingCage = true;
 
         touchingCage.transform.SetParent(cageHoldPos);
         touchingCage.transform.localRotation = Quaternion.Euler(0,180,0);
         touchingCage.transform.localPosition = new Vector3(0,0,0);
         touchingCage.GetComponent<CageBaseScript>().beingHeld = true;
+
+
+        
+
     }
 
     public void ReleaseCage()

@@ -7,6 +7,7 @@ public class PlayerChicky : PlayerBase
 {
     public override void StartLocalVariables()
     {
+        character = Zoolatry.PLAYER_CHARACTER.Chicky;
         ammoCarrying = Zoolatry.CHICKY_AMMO_MAX;
         speed = Zoolatry.CHICKY_SPEED_BASE;
         playerShootSpeed = Zoolatry.CHICKY_SHOOTING_SPEED;

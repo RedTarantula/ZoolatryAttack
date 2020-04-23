@@ -229,6 +229,7 @@ GameObject:
   - component: {fileID: 1643775502041692037}
   - component: {fileID: 2841560048910708569}
   - component: {fileID: 304873231676900370}
+  - component: {fileID: -8600592728748958142}
   m_Layer: 12
   m_Name: Cage
   m_TagString: CageBase
@@ -245,7 +246,7 @@ Transform:
   m_GameObject: {fileID: 8641128690821874200}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -31.091166, y: 1.008, z: -4.21}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.84757, y: 0.84757, z: 0.84757}
   m_Children:
   - {fileID: 4267805964889879312}
   - {fileID: 8475993149573044531}
@@ -304,11 +305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   beingHeld: 0
-  groundCheck: {fileID: 308061791043706453}
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 256
-  isGrounded: 0
+  cagetype: 0
 --- !u!54 &304873231676900370
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -325,3 +322,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-8600592728748958142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8641128690821874200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae592bae9cf8af24b8bbe8d611906eea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGrounded: 0
+  groundCheck: {fileID: 308061791043706453}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 256

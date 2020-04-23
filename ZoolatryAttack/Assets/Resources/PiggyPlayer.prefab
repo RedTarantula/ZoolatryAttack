@@ -345,6 +345,7 @@ MonoBehaviour:
   playerMaxhealth: 0
   holdingCage: 0
   touchingCage: {fileID: 0}
+  character: 0
 --- !u!143 &230786430814991486
 CharacterController:
   m_ObjectHideFlags: 0

@@ -7,6 +7,7 @@ public class PlayerPiggy : PlayerBase
 {
     public override void StartLocalVariables()
     {
+        character = Zoolatry.PLAYER_CHARACTER.Piggy;
         ammoCarrying = Zoolatry.PIGGY_AMMO_MAX;
         speed = Zoolatry.PIGGY_SPEED_BASE;
         playerShootSpeed = Zoolatry.PIGGY_SHOOTING_SPEED;

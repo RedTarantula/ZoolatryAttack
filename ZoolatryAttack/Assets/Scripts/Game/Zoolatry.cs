@@ -52,4 +52,5 @@ public class Zoolatry
     public enum PLAYER_CHARACTER {Chicky, Piggy};
     public enum BULLET_TARGET {Players,Enemies,All};
     public enum PICKUP_TYPE { Health, Ammo};
+    public enum CAGE_TYPE { Small,Medium,Large};
 }

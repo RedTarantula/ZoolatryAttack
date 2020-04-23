@@ -6,18 +6,14 @@ using Photon.Pun;
 public class GroundedObject : MonoBehaviourPunCallbacks
 {
     public bool isGrounded;
-    float gravity = -9.81f;
     Vector3 velocity;
     public Transform groundCheck;
     public LayerMask groundMask;
     float fallJumpMultiplier = 2.5f;
     float groundDistance = 0.05f;
-    public bool fall = true;
-    private void Update()
+   
+    public void Fall()
     {
-        if (!fall)
-            return;
-
         isGrounded = Physics.CheckSphere(groundCheck.position,groundDistance,groundMask);
 
         if (!isGrounded)
