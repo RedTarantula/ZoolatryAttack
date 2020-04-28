@@ -9,12 +9,22 @@ public class CageBaseScript : MonoBehaviourPunCallbacks, IPunObservable
     GroundedObject gobj;
     public Zoolatry.CAGE_TYPE cagetype;
 
+    #region Unity Calls
     private void Awake()
     {
             gobj = GetComponent<GroundedObject>();
         gobj.groundMask = LayerMask.GetMask("Ground");
     }
+    private void Update()
+    {
+        if (!beingHeld)
+        {
+            gobj.Fall();
+        }
+    }
+    #endregion
 
+    #region Pun Calls
     public void OnPhotonSerializeView(PhotonStream stream,PhotonMessageInfo info)
     {
         if (stream.IsWriting)
@@ -26,18 +36,14 @@ public class CageBaseScript : MonoBehaviourPunCallbacks, IPunObservable
             this.beingHeld = (bool)stream.ReceiveNext();
         }
     }
+    #endregion
+
+
     public void ChangeBeingHeld(bool b)
     {
         beingHeld = b;
     }
 
-    private void Update()
-    {
-        if (!beingHeld)
-        {
-            gobj.Fall();
-        }
-    }
 
     [PunRPC]
     public void Deliver()

@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mat_Piggy 1
+  m_Name: Mat_Chicky
   m_Shader: {fileID: -6465566751694194690, guid: e87631564b11f44df856e594cea2c530,
     type: 3}
   m_ShaderKeywords: HARD_SHADING_ON
