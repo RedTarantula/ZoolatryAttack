@@ -7,7 +7,11 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD:ZoolatryAttack/Assets/Models/Characters/Mat_Chicky.mat
   m_Name: Mat_Chicky
+=======
+  m_Name: Mat_Piggy 2
+>>>>>>> f9d4052d54dadff2da19b35ffe2d453398f0f2f9:ZoolatryAttack/Assets/Models/Characters/Tex/Mat_Piggy 2.mat
   m_Shader: {fileID: -6465566751694194690, guid: e87631564b11f44df856e594cea2c530,
     type: 3}
   m_ShaderKeywords: HARD_SHADING_ON
