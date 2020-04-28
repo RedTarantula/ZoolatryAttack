@@ -282,30 +282,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundCheck: {fileID: 2853868542720578854}
+  shootingPoint: {fileID: 8326633353029187826}
+  cageHoldPos: {fileID: 3074301052876600960}
   groundMask:
     serializedVersion: 2
     m_Bits: 256
   model: {fileID: 3009410283167847726}
-  shootingPoint: {fileID: 8326633353029187826}
   projectilePrefab: {fileID: 2140741497021420405, guid: b4fd6c4214333b64b84bbefd216cc5c8,
     type: 3}
+  touchingCage: {fileID: 0}
   debugStatusTxt: {fileID: 6547372326551487600}
   healthBar: {fileID: 5288936023989959841}
-  zm: {fileID: 0}
-  hud: {fileID: 0}
-  cageHoldPos: {fileID: 3074301052876600960}
-  speed: 0
-  magazineBullets: 0
-  magazineCapacity: 0
-  ammoCarrying: 0
-  health: 0
-  isGrounded: 0
-  playerShootSpeed: 0
-  playerReloadTimer: 0
-  playerMaxhealth: 0
-  holdingCage: 0
-  touchingCage: {fileID: 0}
   character: 0
+  isGrounded: 0
+  holdingCage: 0
 --- !u!143 &4307474183384354498
 CharacterController:
   m_ObjectHideFlags: 0
@@ -796,6 +786,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 3904134539867642968, guid: 718033fac2f371341b98ac1fea9f1ad8,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 50072ce4f4848dc4188116bccf518d22, type: 2}
     - target: {fileID: 4361775311769204863, guid: 718033fac2f371341b98ac1fea9f1ad8,
         type: 3}
       propertyPath: m_Layer

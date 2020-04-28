@@ -322,30 +322,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundCheck: {fileID: 4867434542757596115}
+  shootingPoint: {fileID: 3147518745907034509}
+  cageHoldPos: {fileID: 3710822352169814326}
   groundMask:
     serializedVersion: 2
     m_Bits: 256
   model: {fileID: 5933380766002504939}
-  shootingPoint: {fileID: 3147518745907034509}
   projectilePrefab: {fileID: 2140741497021420405, guid: b4fd6c4214333b64b84bbefd216cc5c8,
     type: 3}
+  touchingCage: {fileID: 0}
   debugStatusTxt: {fileID: 1468372764609284924}
   healthBar: {fileID: 8706549070916135269}
-  zm: {fileID: 0}
-  hud: {fileID: 0}
-  cageHoldPos: {fileID: 3710822352169814326}
-  speed: 0
-  magazineBullets: 0
-  magazineCapacity: 0
-  ammoCarrying: 0
-  health: 0
-  isGrounded: 0
-  playerShootSpeed: 0
-  playerReloadTimer: 0
-  playerMaxhealth: 0
-  holdingCage: 0
-  touchingCage: {fileID: 0}
   character: 0
+  isGrounded: 0
+  holdingCage: 0
 --- !u!143 &230786430814991486
 CharacterController:
   m_ObjectHideFlags: 0
