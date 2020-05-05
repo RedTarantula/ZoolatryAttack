@@ -7,6 +7,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: pot
+    second: {fileID: 2100000, guid: 46d3912115f07ce4595785db6abeab53, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: snake
     second: {fileID: 2100000, guid: a1411a80521fa3b499f3a602cd2066a1, type: 2}
   materials:

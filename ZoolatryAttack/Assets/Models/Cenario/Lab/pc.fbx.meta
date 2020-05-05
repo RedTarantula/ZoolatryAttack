@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ccbcfa9d0bb19c74bbf2694fa2a90619
+guid: 47195a251c491ae41a39aa535d9837ee
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
@@ -7,13 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 2
-    second: {fileID: 2100000, guid: b8855b3865ba122499089e57baa90aa2, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: brain
-    second: {fileID: 2100000, guid: b8855b3865ba122499089e57baa90aa2, type: 2}
+      name: pc
+    second: {fileID: 2100000, guid: d882efc25004c5244b9504692f27740e, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

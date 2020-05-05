@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ccbcfa9d0bb19c74bbf2694fa2a90619
+guid: 3416f5d600e2e7b41b726dcda8e76caa
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
@@ -7,13 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 2
-    second: {fileID: 2100000, guid: b8855b3865ba122499089e57baa90aa2, type: 2}
+      name: plant
+    second: {fileID: 2100000, guid: 26f59a169bf59634a9f4766c1445e657, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: brain
-    second: {fileID: 2100000, guid: b8855b3865ba122499089e57baa90aa2, type: 2}
+      name: vase
+    second: {fileID: 2100000, guid: e6e859bf891f3264c9f98a849641128c, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
