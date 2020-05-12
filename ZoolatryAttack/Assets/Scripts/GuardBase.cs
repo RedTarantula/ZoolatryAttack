@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using static Zoolatry;
 
-public class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
+public abstract class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
 {
     [Header("References")]
     public Transform groundCheck;
@@ -14,25 +15,33 @@ public class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
     public ZoolatryManager zm;
     CharacterController ctrl;
 
-    [Header("Move Values")]
-    public float speed;
-    public int magazineBullets;
-    public int magazineCapacity;
-    public int ammoCarrying;
-    public float health;
+    [Header("Guard")]
+    public GUARD_CHARACTER guard;
+    public GuardVariables gVars;
 
-    [Header("Other Values")]
-    public bool isGrounded;
-    float gravity = -9.81f;
+    [Header("Movement")]
     Vector3 velocity;
     Vector3 movePos;
-    float fallJumpMultiplier = 2.5f;
-    float groundDistance = 0.4f;
 
-    bool reloading=false;
+    [Header("Timers")]
     float shootCooldown = 0f;
     float reloadTimer = 0f;
 
+    [Header("States")]
+    public bool isGrounded = false;
+    public bool holdingCage = false;
+    bool reloading = false;
+
+    private void Awake()
+    {
+        ctrl = GetComponent<CharacterController>();
+    }
+    private void Start()
+    {
+        StartLocalVariables();
+    }
+
+    public abstract void StartLocalVariables();
     public void OnPhotonSerializeView(PhotonStream stream,PhotonMessageInfo info)
     {
         //if (stream.IsWriting)

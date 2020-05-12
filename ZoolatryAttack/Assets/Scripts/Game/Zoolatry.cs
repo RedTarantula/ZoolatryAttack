@@ -49,6 +49,24 @@ public class Zoolatry
 
     //---------
 
+    public const float GUARD_BASE_HP_MAX = 0.04f;
+    public const float GUARD_BASE_SPEED_BASE = 0.04f;
+
+    public const int GUARD_BASE_MAGAZINE_CAPACITY = 6;
+    public const float GUARD_BASE_RELOAD_TIMER = 1f;
+
+    public const float GUARD_BASE_SHOOTING_SPEED = 1f; // times within a second
+    public const float GUARD_BASE_SHOOTING_SPREAD = .3f;
+
+    public const float GUARD_BASE_PROJECTILE_SPEED = .2f;
+    public const float GUARD_BASE_PROJECTILE_RANGE = 8f;
+    public const float GUARD_BASE_PROJECTILE_DAMAGE = 15f;
+
+    public const float GUARD_BASE_DISTANCE_SHOOT_TARGET = .7f; // how close it must be to the target to start shooting at it
+    public const float GUARD_BASE_DISTANCE_FOLLOW_TARGET = 2f; // how far the target must be for the guard to start chasing it again
+
+    //---------
+
     public const float GAME_GRAVITY = -9.81f;
     public const float GAME_FALL_MULTIPLIER = 2.5f;
     public const float GAME_GROUND_DISTANCE_TEST = 0.4f;
@@ -56,11 +74,56 @@ public class Zoolatry
     //---------
 
     public enum PLAYER_CHARACTER { Chicky, Piggy };
+    public enum GUARD_CHARACTER { Base };
     public enum BULLET_TARGET { Players, Enemies, All };
     public enum PICKUP_TYPE { Health, Ammo };
     public enum CAGE_TYPE { Small, Medium, Large };
+    public enum GUARD_STATE { Idle, Following, Guarding, Shooting, Capturing };
 
     //---------
+
+    public struct GuardVariables
+    {
+        public float healthMax;
+        public float healthCurrent;
+        public float moveSpeed;
+
+        public int ammoMagazineSize;
+        public int ammoLoaded;
+        
+        public float shootSpeed;
+        public float reloadSpeed;
+
+        public GameObject target;
+
+        public float tgtDistShoot;
+        public float tgtDistFollow;
+
+        public GUARD_STATE state;
+
+        public GuardVariables(GUARD_CHARACTER guard)
+        {
+            state = GUARD_STATE.Idle;
+
+            switch (guard)
+            {
+                default:
+                    healthMax = GUARD_BASE_HP_MAX;
+                    moveSpeed = GUARD_BASE_SPEED_BASE;
+                    ammoMagazineSize = GUARD_BASE_MAGAZINE_CAPACITY;
+                    shootSpeed = GUARD_BASE_SHOOTING_SPEED;
+                    reloadSpeed = GUARD_BASE_RELOAD_TIMER;
+                    tgtDistShoot = GUARD_BASE_DISTANCE_SHOOT_TARGET;
+                    tgtDistFollow = GUARD_BASE_DISTANCE_FOLLOW_TARGET;
+                    break;
+            }
+
+            healthCurrent = healthMax;
+            ammoLoaded = ammoMagazineSize;
+            target = null;
+        }
+    }
+
 
     public struct PlayerVariables
     {
@@ -68,27 +131,6 @@ public class Zoolatry
         public float healthCurrent;
         public float moveSpeed;
 
-        public PlayerVariables(PLAYER_CHARACTER character)
-        {
-            if(character == PLAYER_CHARACTER.Piggy)
-            {
-                healthMax = PIGGY_HP_MAX;
-                healthCurrent = PIGGY_HP_MAX;
-                moveSpeed = PIGGY_SPEED_BASE;
-            }
-            else
-            {
-                healthMax = CHICKY_HP_MAX;
-                healthCurrent = CHICKY_HP_MAX;
-                moveSpeed = CHICKY_SPEED_BASE;
-            }
-
-        }
-    }
-
-
-    public struct PlayerGun
-    {
         public int ammoCarryMax;
         public int ammoCarrying;
 
@@ -98,10 +140,14 @@ public class Zoolatry
         public float shootSpeed;
         public float reloadSpeed;
 
-        public PlayerGun(PLAYER_CHARACTER character)
+        public PlayerVariables(PLAYER_CHARACTER character)
         {
             if(character == PLAYER_CHARACTER.Piggy)
             {
+                healthMax = PIGGY_HP_MAX;
+                healthCurrent = PIGGY_HP_MAX;
+                moveSpeed = PIGGY_SPEED_BASE;
+
                 ammoCarryMax = PIGGY_AMMO_MAX;
                 ammoCarrying = PIGGY_AMMO_MAX;
 
@@ -113,6 +159,10 @@ public class Zoolatry
             }
             else
             {
+                healthMax = CHICKY_HP_MAX;
+                healthCurrent = CHICKY_HP_MAX;
+                moveSpeed = CHICKY_SPEED_BASE;
+
                 ammoCarryMax = CHICKY_AMMO_MAX;
                 ammoCarrying = CHICKY_AMMO_MAX;
 
@@ -125,4 +175,6 @@ public class Zoolatry
 
         }
     }
+
+
 }

@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 using static Zoolatry;
 
-public abstract class PlayerBase : MonoBehaviour
+public abstract class PlayerBase : MonoBehaviourPunCallbacks
 {
     [Header("Points")]
     public Transform groundCheck;
@@ -11,7 +11,6 @@ public abstract class PlayerBase : MonoBehaviour
     public Transform cageHoldPos;
 
     [Header("Basic")]
-    PhotonView photonView;
     ZoolatryManager zm;
     PlayerInfoHUD hud;
     CharacterController ctrl;
@@ -27,7 +26,7 @@ public abstract class PlayerBase : MonoBehaviour
     [Header("Character")]
     public PLAYER_CHARACTER character;
     public PlayerVariables pVars;
-    public PlayerGun pGun;
+
 
     [Header("Movement")]
     Vector3 velocity;
@@ -48,7 +47,6 @@ public abstract class PlayerBase : MonoBehaviour
     #region Unity Calls
     private void Awake()
     {
-        photonView = GetComponent<PhotonView>();
         ctrl = GetComponent<CharacterController>();
     }
     private void Start()
@@ -58,7 +56,7 @@ public abstract class PlayerBase : MonoBehaviour
         if (photonView.IsMine)
         {
             hud.UpdateHudHP(pVars.healthCurrent,pVars.healthMax);
-            hud.UpdateHudAmmo(pGun.ammoLoaded,pGun.ammoMagazineSize,pGun.ammoCarrying);
+            hud.UpdateHudAmmo(pVars.ammoLoaded,pVars.ammoMagazineSize,pVars.ammoCarrying);
         }
         if (photonView.IsMine)
         {
@@ -100,24 +98,26 @@ public abstract class PlayerBase : MonoBehaviour
         {
             if (!holdingCage && touchingCage != null)
             {
+                photonView.RPC("DebugStatusText",RpcTarget.All,"Carrying cage...");
                 PickupCage();
             }
             else if (holdingCage)
             {
+                photonView.RPC("DebugStatusText",RpcTarget.All,"Releasing cage...");
                 ReleaseCage();
             }
         }
-        if (Input.GetKeyDown(KeyCode.Space) && shootCooldown <= 0 && pGun.ammoLoaded > 0 && !reloading)
+        if (Input.GetKeyDown(KeyCode.Space) && shootCooldown <= 0 && pVars.ammoLoaded > 0 && !reloading)
         {
             photonView.RPC("DebugStatusText",RpcTarget.All,"Shooting...");
             photonView.RPC("Shoot",RpcTarget.AllViaServer,shootingPoint.position,model.transform.rotation);
-            pGun.ammoLoaded--;
-            shootCooldown = Time.deltaTime / pGun.shootSpeed;
+            pVars.ammoLoaded--;
+            shootCooldown = Time.deltaTime / pVars.shootSpeed;
         }
-        else if (Input.GetKeyDown(KeyCode.Space) && pGun.ammoLoaded <= 0 && reloadTimer <= 0 && pGun.ammoCarrying > 0)
+        else if (Input.GetKeyDown(KeyCode.Space) && pVars.ammoLoaded <= 0 && reloadTimer <= 0 && pVars.ammoCarrying > 0)
         {
             photonView.RPC("DebugStatusText",RpcTarget.All,"Reloading...");
-            reloadTimer = pGun.reloadSpeed;
+            reloadTimer = pVars.reloadSpeed;
             reloading = true;
         }
         else if (!reloading)
@@ -127,7 +127,7 @@ public abstract class PlayerBase : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             photonView.RPC("DebugStatusText",RpcTarget.All,"Reloading...");
-            reloadTimer = pGun.reloadSpeed;
+            reloadTimer = pVars.reloadSpeed;
             reloading = true;
         }
         if (movePos.magnitude != 0)
@@ -178,7 +178,7 @@ public abstract class PlayerBase : MonoBehaviour
         ShootProjectiles(pos,model.transform.forward,lag);
         if (photonView.IsMine)
         {
-            hud.UpdateHudAmmo(pGun.ammoLoaded,pGun.ammoMagazineSize,pGun.ammoCarrying);
+            hud.UpdateHudAmmo(pVars.ammoLoaded,pVars.ammoMagazineSize,pVars.ammoCarrying);
         }
     }
     [PunRPC]
@@ -209,10 +209,10 @@ public abstract class PlayerBase : MonoBehaviour
     public abstract void StartLocalVariables();
     public void SetAmmoInv(int ammount)
     {
-        pGun.ammoCarrying = ammount;
+        pVars.ammoCarrying = ammount;
         if (photonView.IsMine)
         {
-            hud.UpdateHudAmmo(pGun.ammoLoaded,pGun.ammoMagazineSize,pGun.ammoCarrying);
+            hud.UpdateHudAmmo(pVars.ammoLoaded,pVars.ammoMagazineSize,pVars.ammoCarrying);
         }
     }
     public void HealPercent(float h)
@@ -249,13 +249,13 @@ public abstract class PlayerBase : MonoBehaviour
     {
         photonView.RPC("DebugStatusText",RpcTarget.All,"Idle...");
         reloading = false;
-        int toBeReloaded = pGun.ammoMagazineSize - pGun.ammoLoaded;
-        if (toBeReloaded > pGun.ammoCarrying)
-            toBeReloaded = pGun.ammoCarrying;
-        pGun.ammoCarrying -= pGun.ammoLoaded += toBeReloaded;
+        int toBeReloaded = pVars.ammoMagazineSize - pVars.ammoLoaded;
+        if (toBeReloaded > pVars.ammoCarrying)
+            toBeReloaded = pVars.ammoCarrying;
+        pVars.ammoCarrying -= pVars.ammoLoaded += toBeReloaded;
         if (photonView.IsMine)
         {
-            hud.UpdateHudAmmo(pGun.ammoLoaded,pGun.ammoMagazineSize,pGun.ammoCarrying);
+            hud.UpdateHudAmmo(pVars.ammoLoaded,pVars.ammoMagazineSize,pVars.ammoCarrying);
         }
     }
     public void PickupCage()

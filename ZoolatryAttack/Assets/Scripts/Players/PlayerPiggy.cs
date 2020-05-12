@@ -8,7 +8,6 @@ public class PlayerPiggy : PlayerBase
         character = PLAYER_CHARACTER.Piggy;
 
         pVars = new PlayerVariables(character);
-        pGun = new PlayerGun(character);
     }
     public override void ShootProjectiles(Vector3 pos,Vector3 dir,float lag)
     {
