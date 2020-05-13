@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1f6291ff4b43b0e49b0116b27400f557
+guid: 3e5b6047d541c2d479f6457a19159f33
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: table
-    second: {fileID: 2100000, guid: d735d4381b28fb048ae28e7bd4887492, type: 2}
+      name: potions
+    second: {fileID: 2100000, guid: c612407a39b1fbf4280a94de829b5ff7, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

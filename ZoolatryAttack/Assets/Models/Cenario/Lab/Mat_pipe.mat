@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mat_chairs
+  m_Name: Mat_pipe
   m_Shader: {fileID: -6465566751694194690, guid: e87631564b11f44df856e594cea2c530,
     type: 3}
   m_ShaderKeywords: HARD_SHADING_ON
@@ -33,7 +33,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 31dd69565ec343a4a9ca13c8c9e096fb, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7667eb16991cc5545ae8e2fcbe09cd9d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -89,7 +89,7 @@ Material:
     - _ReceiveShadows: 1
     - _SampleGI: 0
     - _Shininess: 0
-    - _Smoothness: 1
+    - _Smoothness: 0.1
     - _SmoothnessSource: 0
     - _SmoothnessTextureChannel: 0
     - _SpecSource: 0
