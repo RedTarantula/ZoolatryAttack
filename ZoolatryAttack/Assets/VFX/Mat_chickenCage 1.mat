@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mat_Cage
-  m_Shader: {fileID: -6465566751694194690, guid: aac0dc07c7ddbfb489ec35bf4e84c73a,
+  m_Name: Mat_chickenCage 1
+  m_Shader: {fileID: -6465566751694194690, guid: 28beba0ef7b0aed4cbec267fd19ba4aa,
     type: 3}
   m_ShaderKeywords: HARD_SHADING_ON
   m_LightmapFlags: 4
@@ -20,6 +20,14 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Cubemap_B71EE19B:
+        m_Texture: {fileID: 8900000, guid: f4925dec2429a8749b30ee64bb40c29e, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_65F6750B:
+        m_Texture: {fileID: 2800000, guid: e37edc1aac790bf419ee4659634f2b29, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -33,7 +41,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 9126eac1834daee4887d3b1acb2a6d41, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -41,7 +49,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 1204537efbc15ab41b602346acbc1dbe, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -50,14 +58,6 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _OcclusionTex:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_6E07B177_Texture_1:
-        m_Texture: {fileID: 2800000, guid: 93ada02ddad9f0d4fa7107a676aa888d, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_DC58E7F9_Texture_1:
-        m_Texture: {fileID: 2800000, guid: 93ada02ddad9f0d4fa7107a676aa888d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SmoothnessTex:
@@ -72,10 +72,6 @@ Material:
         m_Texture: {fileID: 2800000, guid: bf91a9f94ae4348b09a32bb9c02a7b4d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Triplanar_7F73FBF_Texture_1:
-        m_Texture: {fileID: 2800000, guid: 93ada02ddad9f0d4fa7107a676aa888d, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     m_Floats:
     - HARD_SHADING: 1
     - Vector1_962926F1: 1.1
@@ -86,7 +82,7 @@ Material:
     - _Cull: 2
     - _Cutoff: 0.5
     - _DabsRotation: 15
-    - _DabsTiling: 51
+    - _DabsTiling: 106
     - _DstBlend: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
@@ -94,14 +90,14 @@ Material:
     - _GlossinessSource: 0
     - _GlossyReflections: 0
     - _Metallic: 0
-    - _NormalMult: 1
+    - _NormalMult: 0.36
     - _OcclusionMult: 1
     - _OcclusionStrength: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _SampleGI: 0
     - _Shininess: 0
-    - _Smoothness: 0.3
+    - _Smoothness: 0.1
     - _SmoothnessSource: 0
     - _SmoothnessTextureChannel: 0
     - _SpecSource: 0
@@ -111,12 +107,13 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_ECC8034D: {r: 0, g: 1, b: 0.819422, a: 0}
+    - Color_3A19014D: {r: 1, g: 0.43458793, b: 0.24056602, a: 1}
+    - Color_B7A4C110: {r: 0.1792453, g: 0.124983855, b: 0.09554112, a: 0}
     - _BaseColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.7169812, g: 0.7169812, b: 0.7169812, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
-    - _Specular: {r: 0, g: 0, b: 0, a: 0}
+    - _Specular: {r: 0.2264151, g: 0.2264151, b: 0.2264151, a: 0}
     - _TextureTiling: {r: 1, g: 1, b: 0, a: 0}
 --- !u!114 &1936096817387285684
 MonoBehaviour:

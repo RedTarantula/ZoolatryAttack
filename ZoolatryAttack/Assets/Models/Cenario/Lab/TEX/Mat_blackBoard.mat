@@ -10,7 +10,7 @@ Material:
   m_Name: Mat_blackBoard
   m_Shader: {fileID: -6465566751694194690, guid: e87631564b11f44df856e594cea2c530,
     type: 3}
-  m_ShaderKeywords: HARD_SHADING_ON
+  m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -65,8 +65,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - HARD_SHADING: 1
-    - Vector1_962926F1: 1.1
+    - HARD_SHADING: 0
+    - Vector1_962926F1: 0.67
     - _AlphaClip: 0
     - _BacklightAmount: 2.3
     - _Blend: 0
@@ -82,14 +82,14 @@ Material:
     - _GlossinessSource: 0
     - _GlossyReflections: 0
     - _Metallic: 0
-    - _NormalMult: 0.1
+    - _NormalMult: 0.25
     - _OcclusionMult: 1
     - _OcclusionStrength: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _SampleGI: 0
     - _Shininess: 0
-    - _Smoothness: 0.3
+    - _Smoothness: 0.242
     - _SmoothnessSource: 0
     - _SmoothnessTextureChannel: 0
     - _SpecSource: 0
@@ -103,7 +103,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
-    - _Specular: {r: 0.2075472, g: 0.2075472, b: 0.2075472, a: 0}
+    - _Specular: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 0}
     - _TextureTiling: {r: 1, g: 1, b: 0, a: 0}
 --- !u!114 &1936096817387285684
 MonoBehaviour:
