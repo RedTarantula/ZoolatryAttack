@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: planks
-    second: {fileID: 2100000, guid: de5767a7da3ee264989f72a73ad20d28, type: 2}
+    second: {fileID: 2100000, guid: 865efa7ff1827df4d936adbd50a884fe, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

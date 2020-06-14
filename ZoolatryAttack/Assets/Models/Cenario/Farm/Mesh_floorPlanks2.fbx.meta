@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: floorPlanks
-    second: {fileID: 2100000, guid: 653d333937b07af4c9a046123926e5f8, type: 2}
+    second: {fileID: 2100000, guid: 4d802651c7db5e74b83254c4af0c3984, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
