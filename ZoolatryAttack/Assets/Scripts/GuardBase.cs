@@ -23,7 +23,6 @@ public abstract class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
     Vector3 velocity;
     Vector3 movePos;
     float scoutDist = 0f;
-    Quaternion scoutDirection;
 
     [Header("Timers")]
     float shootCooldown = 0f;
@@ -92,7 +91,7 @@ public abstract class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
 
         if (gVars.state == GUARD_STATE.Scouting) // If finishes scouting to direction, change to guarding and set the guard timer
         {
-            if (scoutDist <= gVars.scoutDist)
+            if (scoutDist <= 0)
             {
                 gVars.state = GUARD_STATE.Guarding;
                 guardTimer = gVars.guardDuration;
@@ -104,6 +103,7 @@ public abstract class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
             if(guardTimer <= 0)
             {
                 gVars.state = GUARD_STATE.Scouting;
+                scoutDist = gVars.scoutDist;
             }
         }
 
@@ -124,11 +124,26 @@ public abstract class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
             default:
                 break;
         }
-
     }
     public void FindClosestPlayer()
     {
         // If finds a player within range, change to following
+        
+        Collider[] playersInRange = Physics.OverlapSphere(transform.position,gVars.tgtDistAggro,10);
+        if(playersInRange.Length <= 0)
+        { return; }
+
+        GameObject newTgt = playersInRange[0].gameObject;
+        if(playersInRange.Length > 1)
+        {
+            if(Vector3.Distance(transform.position,playersInRange[1].transform.position) > Vector3.Distance(transform.position,playersInRange[0].transform.position))
+            {
+                newTgt = playersInRange[1].gameObject;
+            }
+        }
+        gVars.target = newTgt;
+            gVars.state = GUARD_STATE.Following;
+
     }
     public void ApproachTarget()
     {
@@ -143,13 +158,27 @@ public abstract class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
 
     }
 
+    public void GetScoutDirection()
+    {
+        movePos = transform.right * Random.Range(-1,2) + transform.forward * Random.Range(-1,2);
+        movePos = transform.TransformDirection(movePos);
+    }
+
     public void ScoutToDirection()
     {
-       
+        MoveGuard();
     }
 
     public void GuardPosition()
     {
+        guardTimer -= Time.deltaTime;
+    }
 
+    public void MoveGuard()
+    {
+        Quaternion rot = Quaternion.LookRotation(movePos);
+        model.transform.rotation = Quaternion.Lerp(model.transform.rotation,rot,.4f);
+        ctrl.Move(movePos.normalized * gVars.moveSpeed);
+        scoutDist -= Time.deltaTime * gVars.moveSpeed;
     }
 }
