@@ -64,7 +64,10 @@ public class Zoolatry
 
     public const float GUARD_BASE_DISTANCE_SHOOT_TARGET = .7f; // how close it must be to the target to start shooting at it
     public const float GUARD_BASE_DISTANCE_FOLLOW_TARGET = 2f; // how far the target must be for the guard to start chasing it again
+    public const float GUARD_BASE_DISTANCE_LOSE_AGGRO = 10f;
 
+    public const float GUARD_BASE_SCOUTING_DISTANCE = 2f;
+    public const float GUARD_BASE_GUARDING_TIMER = 1f;
     //---------
 
     public const float GAME_GRAVITY = -9.81f;
@@ -78,7 +81,18 @@ public class Zoolatry
     public enum BULLET_TARGET { Players, Enemies, All };
     public enum PICKUP_TYPE { Health, Ammo };
     public enum CAGE_TYPE { Small, Medium, Large };
-    public enum GUARD_STATE { Idle, Following, Guarding, Shooting, Capturing };
+    public enum GUARD_STATE { Scouting, Following, Guarding, Shooting, Capturing };
+
+    /*  ==============
+     *   GUARD STATES
+     *  ==============
+     *  
+     * Scouting = walks around searching for the players
+     * Following = follows the target
+     * Guarding = stays in place looking for a target
+     * Shooting = shooting towards the player
+     * Capturing = moving cage to enemy vehicle
+     */
 
     //---------
 
@@ -96,14 +110,18 @@ public class Zoolatry
 
         public GameObject target;
 
-        public float tgtDistShoot;
-        public float tgtDistFollow;
+        public float tgtDistShoot; // Distance for the guard to change from moving to shooting
+        public float tgtDistFollow; // Distance for the guard to change from shooting to moving
+        public float tgtDistAggro; // Distance for the guard to lose aggro on its target
+
+        public float scoutDist;
+        public float guardDuration;
 
         public GUARD_STATE state;
 
         public GuardVariables(GUARD_CHARACTER guard)
         {
-            state = GUARD_STATE.Idle;
+            state = GUARD_STATE.Scouting;
 
             switch (guard)
             {
@@ -115,6 +133,9 @@ public class Zoolatry
                     reloadSpeed = GUARD_BASE_RELOAD_TIMER;
                     tgtDistShoot = GUARD_BASE_DISTANCE_SHOOT_TARGET;
                     tgtDistFollow = GUARD_BASE_DISTANCE_FOLLOW_TARGET;
+                    tgtDistAggro = GUARD_BASE_DISTANCE_LOSE_AGGRO;
+                    scoutDist = GUARD_BASE_SCOUTING_DISTANCE;
+                    guardDuration = GUARD_BASE_GUARDING_TIMER;
                     break;
             }
 
@@ -122,6 +143,8 @@ public class Zoolatry
             ammoLoaded = ammoMagazineSize;
             target = null;
         }
+
+        public float TgtDistance(Transform guardTf) { return Vector3.Distance(guardTf.position,target.transform.position); }
     }
 
 
