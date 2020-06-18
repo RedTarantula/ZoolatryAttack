@@ -226,20 +226,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeab51415bb3734aa4adfdaf3b7bda5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundCheck: {fileID: 0}
+  groundCheck: {fileID: 5756092601327520458}
   groundMask:
     serializedVersion: 2
     m_Bits: 0
-  model: {fileID: 0}
-  shootingPoint: {fileID: 0}
+  model: {fileID: 2336587891188492493}
+  shootingPoint: {fileID: 2865166546748192916}
   projectilePrefab: {fileID: 0}
   zm: {fileID: 0}
-  speed: 0
-  magazineBullets: 0
-  magazineCapacity: 0
-  ammoCarrying: 0
-  health: 0
+  guard: 0
   isGrounded: 0
+  holdingCage: 0
 --- !u!114 &622393314545637072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -658,6 +655,12 @@ PrefabInstance:
 --- !u!4 &1600576214669597406 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 7f41b227c3ba31147808aa9c814449b6,
+    type: 3}
+  m_PrefabInstance: {fileID: 6002409179670360516}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2336587891188492493 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 7f41b227c3ba31147808aa9c814449b6,
     type: 3}
   m_PrefabInstance: {fileID: 6002409179670360516}
   m_PrefabAsset: {fileID: 0}

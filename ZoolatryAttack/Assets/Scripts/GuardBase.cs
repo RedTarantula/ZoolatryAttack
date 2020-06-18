@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using static Zoolatry;
 
-public abstract class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
+public class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
 {
     [Header("References")]
     public Transform groundCheck;
@@ -17,7 +17,7 @@ public abstract class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
 
     [Header("Guard")]
     public GUARD_CHARACTER guard;
-    public GuardVariables gVars;
+    [SerializeField] public GuardVariables gVars;
 
     [Header("Movement")]
     Vector3 velocity;
@@ -40,10 +40,13 @@ public abstract class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
     }
     private void Start()
     {
-        StartLocalVariables();
+        gVars.state = GUARD_STATE.Scouting;
+    }
+    private void Update()
+    {
+        EnemyAI();
     }
 
-    public abstract void StartLocalVariables();
     public void OnPhotonSerializeView(PhotonStream stream,PhotonMessageInfo info)
     {
         //if (stream.IsWriting)
@@ -58,72 +61,65 @@ public abstract class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
 
     public void EnemyAI()
     {
-        if(gVars.target == null)
+        switch (gVars.state)
         {
-            // Search for target
-            return;
+            case GUARD_STATE.Scouting:
+                if (scoutDist <= 0)
+                {
+                    gVars.state = GUARD_STATE.Guarding;
+                    guardTimer = gVars.guardDuration;
+                }
+                FindClosestPlayer();
+                return;
+                //=------------------=
+
+            case GUARD_STATE.Following:
+                if (gVars.target == null) return;
+                if (gVars.TgtDistance(transform) <= gVars.tgtDistShoot)
+                {
+                    gVars.state = GUARD_STATE.Shooting;
+                }
+                break;
+                //=------------------=
+
+            case GUARD_STATE.Guarding:
+                if (guardTimer <= 0)
+                {
+                    gVars.state = GUARD_STATE.Scouting;
+                    scoutDist = gVars.scoutDist;
+                }
+                FindClosestPlayer();
+                return;
+                //=------------------=
+
+            case GUARD_STATE.Shooting:
+                if (gVars.target == null) return;
+
+                if (gVars.TgtDistance(transform) >= gVars.tgtDistFollow)
+                {
+                    gVars.state = GUARD_STATE.Following;
+                }
+                break;
+                //=------------------=
+
+            case GUARD_STATE.Capturing:
+                break;
+                //=------------------=
+
+            default:
+                break;
         }
 
-        float targetDistance = gVars.TgtDistance(transform);
+        
      
-        if(targetDistance > gVars.tgtDistAggro) // When too far from the player, lose it as a target and start scouting
+        if(gVars.TgtDistance(transform) > gVars.tgtDistAggro) // When too far from the player, lose it as a target and start scouting
         {
             gVars.target = null;
             gVars.state = GUARD_STATE.Scouting;
             return;
         }
 
-        if(gVars.state == GUARD_STATE.Following) // If is following and get the player within shooting range, stop moving and start shooting
-        {
-            if(targetDistance <= gVars.tgtDistShoot)
-            {
-                gVars.state = GUARD_STATE.Shooting;
-            }
-        }
-
-        if(gVars.state == GUARD_STATE.Shooting) // If is shooting and the player gets out of the range, stop shooting and start following
-        {
-            if(targetDistance >= gVars.tgtDistFollow)
-            {
-                gVars.state = GUARD_STATE.Following;
-            }
-        }
-
-        if (gVars.state == GUARD_STATE.Scouting) // If finishes scouting to direction, change to guarding and set the guard timer
-        {
-            if (scoutDist <= 0)
-            {
-                gVars.state = GUARD_STATE.Guarding;
-                guardTimer = gVars.guardDuration;
-            }
-        }
-
-        if(gVars.state == GUARD_STATE.Guarding) // If the guard timer finishes, change to scouting
-        {
-            if(guardTimer <= 0)
-            {
-                gVars.state = GUARD_STATE.Scouting;
-                scoutDist = gVars.scoutDist;
-            }
-        }
-
-        switch (gVars.state)
-        {
-            case GUARD_STATE.Scouting:
-                FindClosestPlayer();
-                break;
-            case GUARD_STATE.Following:
-                break;
-            case GUARD_STATE.Guarding:
-                FindClosestPlayer();
-                break;
-            case GUARD_STATE.Shooting:
-                break;
-            case GUARD_STATE.Capturing:
-                break;
-            default:
-                break;
-        }
+        
     }
     public void FindClosestPlayer()
     {
@@ -181,4 +177,5 @@ public abstract class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
         ctrl.Move(movePos.normalized * gVars.moveSpeed);
         scoutDist -= Time.deltaTime * gVars.moveSpeed;
     }
+
 }

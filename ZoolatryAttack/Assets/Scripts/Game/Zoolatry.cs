@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
-public class Zoolatry
+public static class Zoolatry
 {
     public const string PLAYER_LOADED_LEVEL = "PlayerLoadedLevel";
 
@@ -66,8 +65,8 @@ public class Zoolatry
     public const float GUARD_BASE_DISTANCE_FOLLOW_TARGET = 2f; // how far the target must be for the guard to start chasing it again
     public const float GUARD_BASE_DISTANCE_LOSE_AGGRO = 10f;
 
-    public const float GUARD_BASE_SCOUTING_DISTANCE = 2f;
-    public const float GUARD_BASE_GUARDING_TIMER = 1f;
+    public const float GUARD_BASE_SCOUTING_DISTANCE = 5f;
+    public const float GUARD_BASE_GUARDING_TIMER = 5f;
     //---------
 
     public const float GAME_GRAVITY = -9.81f;
@@ -81,7 +80,7 @@ public class Zoolatry
     public enum BULLET_TARGET { Players, Enemies, All };
     public enum PICKUP_TYPE { Health, Ammo };
     public enum CAGE_TYPE { Small, Medium, Large };
-    public enum GUARD_STATE { Scouting, Following, Guarding, Shooting, Capturing };
+    public enum GUARD_STATE { Scouting, Following, Guarding, Shooting, Capturing, Idle };
 
     /*  ==============
      *   GUARD STATES
@@ -96,6 +95,7 @@ public class Zoolatry
 
     //---------
 
+    [Serializable]
     public struct GuardVariables
     {
         public float healthMax;
@@ -147,7 +147,8 @@ public class Zoolatry
         public float TgtDistance(Transform guardTf) { return Vector3.Distance(guardTf.position,target.transform.position); }
     }
 
-
+    
+    [Serializable]
     public struct PlayerVariables
     {
         public float healthMax;
