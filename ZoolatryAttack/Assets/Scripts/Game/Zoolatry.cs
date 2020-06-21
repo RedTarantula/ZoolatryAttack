@@ -49,7 +49,7 @@ public static class Zoolatry
     //---------
 
     public const float GUARD_BASE_HP_MAX = 0.04f;
-    public const float GUARD_BASE_SPEED_BASE = 0.04f;
+    public const float GUARD_BASE_SPEED_BASE = 0.4f;
 
     public const int GUARD_BASE_MAGAZINE_CAPACITY = 6;
     public const float GUARD_BASE_RELOAD_TIMER = 1f;

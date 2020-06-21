@@ -164,7 +164,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3459030062885486930}
-  m_LocalRotation: {x: -0, y: -0.8675009, z: -0, w: 0.49743578}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -13.91, y: 0.5, z: -3.08}
   m_LocalScale: {x: 0.93586, y: 0.93586, z: 0.93586}
   m_Children:
@@ -173,7 +173,7 @@ Transform:
   - {fileID: 7198187577666828717}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -120.339005, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4635407590289450198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,7 +234,24 @@ MonoBehaviour:
   shootingPoint: {fileID: 2865166546748192916}
   projectilePrefab: {fileID: 0}
   zm: {fileID: 0}
+  statusTxt: {fileID: 1733203520125717029}
+  hpBar: {fileID: 8412378947129403516}
   guard: 0
+  gVars:
+    healthMax: 0
+    healthCurrent: 0
+    moveSpeed: 0
+    ammoMagazineSize: 0
+    ammoLoaded: 0
+    shootSpeed: 0
+    reloadSpeed: 0
+    target: {fileID: 0}
+    tgtDistShoot: 0
+    tgtDistFollow: 0
+    tgtDistAggro: 0
+    scoutDist: 0
+    guardDuration: 0
+    state: 0
   isGrounded: 0
   holdingCage: 0
 --- !u!114 &622393314545637072
@@ -271,7 +288,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7198187577666828717
 RectTransform:
   m_ObjectHideFlags: 0

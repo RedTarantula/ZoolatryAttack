@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 using static Zoolatry;
+using UnityEngine.AI;
 
 public class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
 {
@@ -13,6 +15,9 @@ public class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
     public Transform shootingPoint;
     public GameObject projectilePrefab;
     public ZoolatryManager zm;
+    public Text statusTxt;
+    public Image hpBar;
+    NavMeshAgent nma;
     CharacterController ctrl;
 
     [Header("Guard")]
@@ -37,14 +42,27 @@ public class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
     private void Awake()
     {
         ctrl = GetComponent<CharacterController>();
+        nma = GetComponent<NavMeshAgent>();
     }
     private void Start()
     {
-        gVars.state = GUARD_STATE.Scouting;
+        gVars = new GuardVariables(GUARD_CHARACTER.Base);
+
+        SetState(GUARD_STATE.Scouting);
+        StartScouting();
+
+        UpdateUI();
     }
     private void Update()
     {
         EnemyAI();
+        UpdateUI();
+    }
+
+    void UpdateUI()
+    {
+        statusTxt.text = gVars.state.ToString();
+        hpBar.fillAmount = gVars.healthCurrent / gVars.healthMax;
     }
 
     public void OnPhotonSerializeView(PhotonStream stream,PhotonMessageInfo info)
@@ -61,23 +79,25 @@ public class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
 
     public void EnemyAI()
     {
+        
         switch (gVars.state)
         {
             case GUARD_STATE.Scouting:
                 if (scoutDist <= 0)
                 {
-                    gVars.state = GUARD_STATE.Guarding;
+                    //SetState(GUARD_STATE.Guarding);
                     guardTimer = gVars.guardDuration;
                 }
                 FindClosestPlayer();
-                return;
+                ScoutToDirection();
+                break;
                 //=------------------=
 
             case GUARD_STATE.Following:
                 if (gVars.target == null) return;
                 if (gVars.TgtDistance(transform) <= gVars.tgtDistShoot)
                 {
-                    gVars.state = GUARD_STATE.Shooting;
+                    //gVars.state = GUARD_STATE.Shooting;
                 }
                 break;
                 //=------------------=
@@ -85,11 +105,11 @@ public class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
             case GUARD_STATE.Guarding:
                 if (guardTimer <= 0)
                 {
-                    gVars.state = GUARD_STATE.Scouting;
-                    scoutDist = gVars.scoutDist;
+                    //SetState(GUARD_STATE.Scouting);
+                    //StartScouting();
                 }
                 FindClosestPlayer();
-                return;
+                break;
                 //=------------------=
 
             case GUARD_STATE.Shooting:
@@ -97,7 +117,7 @@ public class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
 
                 if (gVars.TgtDistance(transform) >= gVars.tgtDistFollow)
                 {
-                    gVars.state = GUARD_STATE.Following;
+                    //gVars.state = GUARD_STATE.Following;
                 }
                 break;
                 //=------------------=
@@ -110,7 +130,8 @@ public class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
                 break;
         }
 
-        
+        if (gVars.target == null)
+            return;
      
         if(gVars.TgtDistance(transform) > gVars.tgtDistAggro) // When too far from the player, lose it as a target and start scouting
         {
@@ -138,7 +159,7 @@ public class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
             }
         }
         gVars.target = newTgt;
-            gVars.state = GUARD_STATE.Following;
+           // gVars.state = GUARD_STATE.Following;
 
     }
     public void ApproachTarget()
@@ -154,10 +175,21 @@ public class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
 
     }
 
-    public void GetScoutDirection()
+    public void StartScouting()
     {
-        movePos = transform.right * Random.Range(-1,2) + transform.forward * Random.Range(-1,2);
-        movePos = transform.TransformDirection(movePos);
+        //movePos = transform.right * Random.Range(-1,2) + transform.forward * Random.Range(-1,2);
+        //movePos = transform.TransformDirection(movePos);
+
+        Vector3 rPos = Random.insideUnitSphere * gVars.scoutDist;
+        movePos = rPos;
+
+        NavMeshHit hit;
+        NavMesh.SamplePosition(movePos,out hit,gVars.scoutDist,1);
+
+        
+        scoutDist = Vector3.Distance(hit.position,transform.position);
+
+        nma.SetDestination(hit.position);
     }
 
     public void ScoutToDirection()
@@ -172,10 +204,24 @@ public class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
 
     public void MoveGuard()
     {
+        nma.updatePosition = false;
+        nma.updateRotation = false;
+
         Quaternion rot = Quaternion.LookRotation(movePos);
         model.transform.rotation = Quaternion.Lerp(model.transform.rotation,rot,.4f);
-        ctrl.Move(movePos.normalized * gVars.moveSpeed);
-        scoutDist -= Time.deltaTime * gVars.moveSpeed;
+        ctrl.Move(nma.destination.normalized * gVars.moveSpeed * Time.deltaTime);
+        
+        scoutDist = Vector3.Distance(nma.destination,transform.position);
+
+        Debug.Log($"Setting scoutDist to {scoutDist}");
+
+        nma.velocity = ctrl.velocity;
+    }
+
+    public void SetState(GUARD_STATE s)
+    {
+        Debug.Log($"Setting guard's state to {s}");
+        gVars.state = s;
     }
 
 }
