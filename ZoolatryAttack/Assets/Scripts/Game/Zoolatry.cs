@@ -65,7 +65,7 @@ public static class Zoolatry
     public const float GUARD_BASE_DISTANCE_FOLLOW_TARGET = 2f; // how far the target must be for the guard to start chasing it again
     public const float GUARD_BASE_DISTANCE_LOSE_AGGRO = 10f;
 
-    public const float GUARD_BASE_SCOUTING_DISTANCE = 5f;
+    public const float GUARD_BASE_SCOUTING_DISTANCE = 15f;
     public const float GUARD_BASE_GUARDING_TIMER = 5f;
     //---------
 

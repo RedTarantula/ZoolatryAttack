@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 using static Zoolatry;
 using UnityEngine.AI;
+using System.Runtime.CompilerServices;
 
 public class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
 {
@@ -26,7 +27,7 @@ public class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
 
     [Header("Movement")]
     Vector3 velocity;
-    Vector3 movePos;
+    public Vector3 movePos;
     float scoutDist = 0f;
 
     [Header("Timers")]
@@ -47,6 +48,7 @@ public class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
     private void Start()
     {
         gVars = new GuardVariables(GUARD_CHARACTER.Base);
+        nma.speed = gVars.moveSpeed*10;
 
         SetState(GUARD_STATE.Scouting);
         StartScouting();
@@ -57,6 +59,7 @@ public class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
     {
         EnemyAI();
         UpdateUI();
+
     }
 
     void UpdateUI()
@@ -79,14 +82,15 @@ public class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
 
     public void EnemyAI()
     {
-        
         switch (gVars.state)
         {
             case GUARD_STATE.Scouting:
-                if (scoutDist <= 0)
+                if (scoutDist <= gVars.moveSpeed*1.5f || nma.remainingDistance < 2f)
                 {
-                    //SetState(GUARD_STATE.Guarding);
+                    Debug.Log("Reached point");
+                    SetState(GUARD_STATE.Guarding);
                     guardTimer = gVars.guardDuration;
+                    break;
                 }
                 FindClosestPlayer();
                 ScoutToDirection();
@@ -105,10 +109,12 @@ public class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
             case GUARD_STATE.Guarding:
                 if (guardTimer <= 0)
                 {
-                    //SetState(GUARD_STATE.Scouting);
-                    //StartScouting();
+                    SetState(GUARD_STATE.Scouting);
+                    StartScouting();
+                    break;
                 }
-                FindClosestPlayer();
+                //FindClosestPlayer();
+                guardTimer -= Time.deltaTime;
                 break;
                 //=------------------=
 
@@ -177,19 +183,22 @@ public class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
 
     public void StartScouting()
     {
-        //movePos = transform.right * Random.Range(-1,2) + transform.forward * Random.Range(-1,2);
-        //movePos = transform.TransformDirection(movePos);
+        Debug.Log("Starting scouting");
 
-        Vector3 rPos = Random.insideUnitSphere * gVars.scoutDist;
-        movePos = rPos;
-
+        movePos = transform.position + Random.insideUnitSphere * gVars.scoutDist;
         NavMeshHit hit;
-        NavMesh.SamplePosition(movePos,out hit,gVars.scoutDist,1);
+        bool b = NavMesh.SamplePosition(movePos,out hit,.5f,NavMesh.AllAreas);
 
+        Debug.Log($"{b} - {movePos} to {hit.position}");
+        // nma.SetDestination(hit.position);
+        if (b)
+        {
+            movePos = hit.position;
+        }
         
-        scoutDist = Vector3.Distance(hit.position,transform.position);
-
-        nma.SetDestination(hit.position);
+            nma.SetDestination(movePos);
+            scoutDist = Vector3.Distance(transform.position,nma.destination);
+        Debug.Log(nma.destination);
     }
 
     public void ScoutToDirection()
@@ -204,23 +213,25 @@ public class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
 
     public void MoveGuard()
     {
-        nma.updatePosition = false;
-        nma.updateRotation = false;
+        //nma.updatePosition = false;
+        //nma.updateRotation = false;
 
-        Quaternion rot = Quaternion.LookRotation(movePos);
-        model.transform.rotation = Quaternion.Lerp(model.transform.rotation,rot,.4f);
-        ctrl.Move(nma.destination.normalized * gVars.moveSpeed * Time.deltaTime);
+        //Quaternion rot = Quaternion.LookRotation(nma.destination);
+        //model.transform.rotation = Quaternion.Lerp(model.transform.rotation,rot,.4f);
+        //ctrl.Move(nma.destination.normalized * gVars.moveSpeed * Time.deltaTime*10);
         
-        scoutDist = Vector3.Distance(nma.destination,transform.position);
+            scoutDist = Vector3.Distance(transform.position,nma.destination);
+        
+        //Quaternion rot = Quaternion.LookRotation(-nma.destination);
+        //model.transform.rotation = Quaternion.Lerp(model.transform.rotation,rot,.4f);
 
-        Debug.Log($"Setting scoutDist to {scoutDist}");
+        //Debug.Log($"Setting scoutDist to {scoutDist}");
 
-        nma.velocity = ctrl.velocity;
     }
 
     public void SetState(GUARD_STATE s)
     {
-        Debug.Log($"Setting guard's state to {s}");
+        //Debug.Log($"Setting guard's state to {s}");
         gVars.state = s;
     }
 
