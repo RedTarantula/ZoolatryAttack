@@ -36,4 +36,4 @@ MonoBehaviour:
   - SetHealth
   - Shoot
   DisableAutoOpenWizard: 1
-  ShowSettings: 1
+  ShowSettings: 0
