@@ -61,9 +61,9 @@ public static class Zoolatry
     public const float GUARD_BASE_PROJECTILE_RANGE = 8f;
     public const float GUARD_BASE_PROJECTILE_DAMAGE = 15f;
 
-    public const float GUARD_BASE_DISTANCE_SHOOT_TARGET = .7f; // how close it must be to the target to start shooting at it
-    public const float GUARD_BASE_DISTANCE_FOLLOW_TARGET = 2f; // how far the target must be for the guard to start chasing it again
-    public const float GUARD_BASE_DISTANCE_LOSE_AGGRO = 10f;
+    public const float GUARD_BASE_DISTANCE_SHOOT_TARGET = 5f; // how close it must be to the target to start shooting at it
+    public const float GUARD_BASE_DISTANCE_FOLLOW_TARGET = 12f; // how far the target must be for the guard to start chasing it again
+    public const float GUARD_BASE_DISTANCE_LOSE_AGGRO = 20f;
 
     public const float GUARD_BASE_SCOUTING_DISTANCE = 15f;
     public const float GUARD_BASE_GUARDING_TIMER = 5f;

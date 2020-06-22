@@ -150,9 +150,9 @@ GameObject:
   - component: {fileID: 1107548361979655527}
   - component: {fileID: 1148223559484999811}
   - component: {fileID: 622393314545637072}
-  m_Layer: 10
+  m_Layer: 14
   m_Name: GuardTest
-  m_TagString: Player
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -232,7 +232,8 @@ MonoBehaviour:
     m_Bits: 0
   model: {fileID: 2336587891188492493}
   shootingPoint: {fileID: 2865166546748192916}
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 2140741497021420405, guid: b4fd6c4214333b64b84bbefd216cc5c8,
+    type: 3}
   zm: {fileID: 0}
   statusTxt: {fileID: 1733203520125717029}
   hpBar: {fileID: 8412378947129403516}
@@ -252,6 +253,7 @@ MonoBehaviour:
     scoutDist: 0
     guardDuration: 0
     state: 0
+  movePos: {x: 0, y: 0, z: 0}
   isGrounded: 0
   holdingCage: 0
 --- !u!114 &622393314545637072

@@ -60,6 +60,17 @@ public class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
         EnemyAI();
         UpdateUI();
 
+         if (shootCooldown > 0)
+            shootCooldown -= Time.deltaTime;
+
+         if (reloading)
+        {
+            if (reloadTimer > 0)
+                reloadTimer -= Time.deltaTime;
+            else
+                ReloadGun();
+        }
+
     }
 
     void UpdateUI()
@@ -87,13 +98,14 @@ public class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
             case GUARD_STATE.Scouting:
                 if (scoutDist <= gVars.moveSpeed*1.5f || nma.remainingDistance < 2f)
                 {
-                    Debug.Log("Reached point");
+                    //Debug.Log("Reached point");
+                    nma.isStopped = true;
                     SetState(GUARD_STATE.Guarding);
                     guardTimer = gVars.guardDuration;
                     break;
                 }
                 FindClosestPlayer();
-                ScoutToDirection();
+                Scouting();
                 break;
                 //=------------------=
 
@@ -101,8 +113,11 @@ public class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
                 if (gVars.target == null) return;
                 if (gVars.TgtDistance(transform) <= gVars.tgtDistShoot)
                 {
-                    //gVars.state = GUARD_STATE.Shooting;
+                    nma.isStopped = true;
+                    gVars.state = GUARD_STATE.Shooting;
+                    break;
                 }
+                ApproachTarget();
                 break;
                 //=------------------=
 
@@ -113,7 +128,7 @@ public class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
                     StartScouting();
                     break;
                 }
-                //FindClosestPlayer();
+                FindClosestPlayer();
                 guardTimer -= Time.deltaTime;
                 break;
                 //=------------------=
@@ -123,8 +138,11 @@ public class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
 
                 if (gVars.TgtDistance(transform) >= gVars.tgtDistFollow)
                 {
-                    //gVars.state = GUARD_STATE.Following;
+                    nma.isStopped = false;
+                    gVars.state = GUARD_STATE.Following;
+                    break;
                 }
+                ShootTarget();
                 break;
                 //=------------------=
 
@@ -152,33 +170,57 @@ public class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
     {
         // If finds a player within range, change to following
         
-        Collider[] playersInRange = Physics.OverlapSphere(transform.position,gVars.tgtDistAggro,10);
-        if(playersInRange.Length <= 0)
-        { return; }
-
-        GameObject newTgt = playersInRange[0].gameObject;
-        if(playersInRange.Length > 1)
+        Collider[] c = Physics.OverlapSphere(transform.position,gVars.tgtDistFollow);
+        List<GameObject> playersFound = new List<GameObject>();
+        foreach (Collider cd in c)
         {
-            if(Vector3.Distance(transform.position,playersInRange[1].transform.position) > Vector3.Distance(transform.position,playersInRange[0].transform.position))
+            if(cd.CompareTag("Player"))
             {
-                newTgt = playersInRange[1].gameObject;
+                playersFound.Add(cd.gameObject);
+                Debug.Log("Found player");
+                gVars.state = GUARD_STATE.Following;
             }
         }
+        if(playersFound.Count <= 0)
+        { return; }
+        GameObject newTgt = playersFound[0].gameObject;
+        if(playersFound.Count > 1)
+        {
+            if(Vector3.Distance(transform.position,playersFound[1].transform.position) > Vector3.Distance(transform.position,playersFound[0].transform.position))
+            {
+                newTgt = playersFound[1].gameObject;
+            }
+        }
+                    nma.isStopped = false;
         gVars.target = newTgt;
-           // gVars.state = GUARD_STATE.Following;
+        
 
     }
     public void ApproachTarget()
     {
-
+        nma.SetDestination(gVars.target.transform.position);
     }
     public void ShootTarget()
     {
+        transform.LookAt(gVars.target.transform,transform.up);
+
+         if (shootCooldown <= 0 && gVars.ammoLoaded > 0 && !reloading)
+        {
+            ShootProjectiles(shootingPoint.position,transform.forward);
+            gVars.ammoLoaded--;
+            shootCooldown = Time.deltaTime / gVars.shootSpeed;
+        }
+        else if (gVars.ammoLoaded <= 0 && reloadTimer <= 0)
+        {
+            reloadTimer = gVars.reloadSpeed;
+            reloading = true;
+        }
+         
 
     }
     public void ReloadGun()
     {
-
+        gVars.ammoLoaded = gVars.ammoMagazineSize;
     }
 
     public void StartScouting()
@@ -189,7 +231,7 @@ public class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
         NavMeshHit hit;
         bool b = NavMesh.SamplePosition(movePos,out hit,.5f,NavMesh.AllAreas);
 
-        Debug.Log($"{b} - {movePos} to {hit.position}");
+        //Debug.Log($"{b} - {movePos} to {hit.position}");
         // nma.SetDestination(hit.position);
         if (b)
         {
@@ -198,12 +240,7 @@ public class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
         
             nma.SetDestination(movePos);
             scoutDist = Vector3.Distance(transform.position,nma.destination);
-        Debug.Log(nma.destination);
-    }
-
-    public void ScoutToDirection()
-    {
-        MoveGuard();
+        //Debug.Log(nma.destination);
     }
 
     public void GuardPosition()
@@ -211,7 +248,7 @@ public class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
         guardTimer -= Time.deltaTime;
     }
 
-    public void MoveGuard()
+    public void Scouting()
     {
         //nma.updatePosition = false;
         //nma.updateRotation = false;
@@ -233,6 +270,15 @@ public class GuardBase : MonoBehaviourPunCallbacks, IPunObservable
     {
         //Debug.Log($"Setting guard's state to {s}");
         gVars.state = s;
+    }
+
+     public void ShootProjectiles(Vector3 pos,Vector3 dir)
+    {
+        GameObject go = Instantiate(projectilePrefab,pos,Quaternion.identity) as GameObject;
+        float spread = Random.Range(-GUARD_BASE_SHOOTING_SPREAD,GUARD_BASE_SHOOTING_SPREAD);
+
+        go.transform.forward = dir;
+        go.GetComponent<Bullet>().InitializeBullet(GUARD_BASE_PROJECTILE_RANGE,GUARD_BASE_PROJECTILE_DAMAGE,GUARD_BASE_PROJECTILE_SPEED,BULLET_TARGET.Players,0);
     }
 
 }
