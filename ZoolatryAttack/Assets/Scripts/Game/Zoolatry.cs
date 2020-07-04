@@ -17,7 +17,7 @@ public static class Zoolatry
     //---------
 
     public const float CHICKY_HP_MAX = 100f;
-    public const float CHICKY_SPEED_BASE = .1f;
+    public const float CHICKY_SPEED_BASE = .14f;
 
     public const int CHICKY_AMMO_MAX = 320;
     public const int CHICKY_MAGAZINE_CAPACITY = 20;
@@ -26,14 +26,14 @@ public static class Zoolatry
     public const float CHICKY_SHOOTING_SPEED = 5f; // times within a second
     public const float CHICKY_SHOOTING_SPREAD = .5f;
 
-    public const float CHICKY_PROJECTILE_SPEED = .3f;
+    public const float CHICKY_PROJECTILE_SPEED = .7f;
     public const float CHICKY_PROJECTILE_RANGE = 50f;
     public const float CHICKY_PROJECTILE_DAMAGE = 5f;
 
     //---------
 
     public const float PIGGY_HP_MAX = 100f;
-    public const float PIGGY_SPEED_BASE = .07f;
+    public const float PIGGY_SPEED_BASE = .1f;
 
     public const int PIGGY_AMMO_MAX = 120;
     public const int PIGGY_MAGAZINE_CAPACITY = 6;
@@ -42,14 +42,14 @@ public static class Zoolatry
     public const float PIGGY_SHOOTING_SPEED = 3f; // times within a second
     public const float PIGGY_SHOOTING_SPREAD = .2f;
 
-    public const float PIGGY_PROJECTILE_SPEED = .2f;
+    public const float PIGGY_PROJECTILE_SPEED = .5f;
     public const float PIGGY_PROJECTILE_RANGE = 10f;
     public const float PIGGY_PROJECTILE_DAMAGE = 15f;
 
     //---------
 
     public const float GUARD_BASE_HP_MAX = 0.04f;
-    public const float GUARD_BASE_SPEED_BASE = 0.4f;
+    public const float GUARD_BASE_SPEED_BASE = 0.6f;
 
     public const int GUARD_BASE_MAGAZINE_CAPACITY = 6;
     public const float GUARD_BASE_RELOAD_TIMER = 1f;
@@ -57,7 +57,7 @@ public static class Zoolatry
     public const float GUARD_BASE_SHOOTING_SPEED = 1f; // times within a second
     public const float GUARD_BASE_SHOOTING_SPREAD = .3f;
 
-    public const float GUARD_BASE_PROJECTILE_SPEED = .2f;
+    public const float GUARD_BASE_PROJECTILE_SPEED = .6f;
     public const float GUARD_BASE_PROJECTILE_RANGE = 8f;
     public const float GUARD_BASE_PROJECTILE_DAMAGE = 15f;
 
