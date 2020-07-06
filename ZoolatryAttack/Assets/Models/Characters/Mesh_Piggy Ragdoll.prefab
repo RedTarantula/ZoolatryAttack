@@ -1177,8 +1177,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6934819596928204098}
   - component: {fileID: 2441849710678865845}
+  - component: {fileID: 6451356657741795125}
   m_Layer: 0
-  m_Name: Mesh_Piggy
+  m_Name: Mesh_Piggy Ragdoll
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1213,6 +1214,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ragdollBool: 1
+--- !u!95 &6451356657741795125
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6225721218709081937}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9336d322a7927e649945c97b47c71722, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6293449669319504392
 GameObject:
   m_ObjectHideFlags: 0

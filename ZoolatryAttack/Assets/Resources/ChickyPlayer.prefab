@@ -294,6 +294,17 @@ MonoBehaviour:
   debugStatusTxt: {fileID: 6547372326551487600}
   healthBar: {fileID: 5288936023989959841}
   character: 0
+  pVars:
+    healthMax: 0
+    healthCurrent: 0
+    moveSpeed: 0
+    ammoCarryMax: 0
+    ammoCarrying: 0
+    ammoMagazineSize: 0
+    ammoLoaded: 0
+    shootSpeed: 0
+    reloadSpeed: 0
+  anim: {fileID: 6449800967106458664}
   isGrounded: 0
   holdingCage: 0
 --- !u!143 &4307474183384354498
@@ -366,6 +377,25 @@ MonoBehaviour:
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!95 &6449800967106458664
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3009410283167847726}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9336d322a7927e649945c97b47c71722, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5008149830454553876
 GameObject:
   m_ObjectHideFlags: 0

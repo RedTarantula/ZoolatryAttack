@@ -33,6 +33,7 @@ public abstract class PlayerBase : MonoBehaviourPunCallbacks
     Vector3 movePos;
     float hInput;
     float vInput;
+    public Animator anim;
 
     [Header("Timers")]
     float shootCooldown = 0f;
@@ -81,6 +82,21 @@ public abstract class PlayerBase : MonoBehaviourPunCallbacks
         }
         hInput = Input.GetAxisRaw("Horizontal");
         vInput = Input.GetAxisRaw("Vertical");
+        if(hInput != 0 || vInput !=0){
+            anim.SetBool("Reloading", false);
+            anim.SetBool("Running", true);
+            anim.SetBool("Walking", false);
+            anim.SetBool("Shooting", false);
+            anim.SetBool("Idle", false);
+        }
+        else
+        {
+            anim.SetBool("Reloading", false);
+            anim.SetBool("Running", false);
+            anim.SetBool("Walking", false);
+            anim.SetBool("Shooting", false);
+            anim.SetBool("Idle", true);
+        }
         movePos = transform.right * hInput + transform.forward * vInput;
         movePos = transform.TransformDirection(movePos);
         if (reloading)
@@ -109,6 +125,7 @@ public abstract class PlayerBase : MonoBehaviourPunCallbacks
         }
         if (Input.GetKeyDown(KeyCode.Space) && shootCooldown <= 0 && pVars.ammoLoaded > 0 && !reloading)
         {
+           anim.SetTrigger("Shooting");
             photonView.RPC("DebugStatusText",RpcTarget.All,"Shooting...");
             photonView.RPC("Shoot",RpcTarget.AllViaServer,shootingPoint.position,model.transform.rotation);
             pVars.ammoLoaded--;
@@ -174,6 +191,7 @@ public abstract class PlayerBase : MonoBehaviourPunCallbacks
     [PunRPC]
     public void Shoot(Vector3 pos,Quaternion rot,PhotonMessageInfo info)
     {
+        
         float lag = (float) (PhotonNetwork.Time - info.SentServerTime);
         ShootProjectiles(pos,model.transform.forward,lag);
         if (photonView.IsMine)
@@ -247,6 +265,7 @@ public abstract class PlayerBase : MonoBehaviourPunCallbacks
     public abstract void PickupReaction(Zoolatry.PICKUP_TYPE pickupType);
     public void ReloadGun()
     {
+        anim.SetTrigger("Reloading");
         photonView.RPC("DebugStatusText",RpcTarget.All,"Idle...");
         reloading = false;
         int toBeReloaded = pVars.ammoMagazineSize - pVars.ammoLoaded;

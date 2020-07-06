@@ -358,7 +358,7 @@ public class LobbyMainPanel : MonoBehaviourPunCallbacks
         PhotonNetwork.CurrentRoom.IsOpen = false;
         PhotonNetwork.CurrentRoom.IsVisible = false;
 
-        PhotonNetwork.LoadLevel("GameTest");
+        PhotonNetwork.LoadLevel("Farm2");
     }
 
     #endregion
