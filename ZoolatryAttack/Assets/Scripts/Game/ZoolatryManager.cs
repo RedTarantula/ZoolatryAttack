@@ -12,6 +12,10 @@ public class ZoolatryManager : MonoBehaviourPunCallbacks
     public Transform spawnerPlayer1;
     public Transform spawnerPlayer2;
 
+
+
+    public GameObject pauseMenuObj;
+
     private void Awake()
     {
         instance = this;
@@ -27,12 +31,23 @@ public class ZoolatryManager : MonoBehaviourPunCallbacks
                 {Zoolatry.PLAYER_LOADED_LEVEL, true}
             };
             PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+
+        if (pauseMenuObj == null)
+        {
+            pauseMenuObj = GameObject.Find("PauseMenu");
+        }
+        pauseMenuObj.SetActive(false);
     }
     public override void OnDisable()
     {
         base.OnDisable();
     }
 
+
+    private void Update()
+    {
+        
+    }
 
     public override void OnLeftRoom()
     {

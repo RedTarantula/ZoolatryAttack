@@ -154,9 +154,15 @@ public abstract class PlayerBase : MonoBehaviourPunCallbacks
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            LeaveTheGame();
+            TriggerPauseMenu();
         }
     }
+
+    void TriggerPauseMenu()
+    {
+        zm.pauseMenuObj.SetActive(!zm.pauseMenuObj.activeSelf);
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (touchingCage != null || holdingCage)
