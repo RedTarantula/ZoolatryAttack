@@ -3720,7 +3720,7 @@ RectTransform:
   m_LocalScale: {x: 0.9999857, y: 0.9999857, z: 0.9999857}
   m_Children: []
   m_Father: {fileID: 1584708749}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -8384,7 +8384,7 @@ PrefabInstance:
     - target: {fileID: 1436914538014331810, guid: 738ef83b453cbcb4d991c253db774cae,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1436914538014331810, guid: 738ef83b453cbcb4d991c253db774cae,
         type: 3}
@@ -29535,9 +29535,9 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 510982182}
   - {fileID: 163051560}
   - {fileID: 1873265330}
+  - {fileID: 510982182}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -34019,7 +34019,7 @@ RectTransform:
   m_LocalScale: {x: 0.9999857, y: 0.9999857, z: 0.9999857}
   m_Children: []
   m_Father: {fileID: 1584708749}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -35599,6 +35599,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnerPlayer1: {fileID: 554382446}
   spawnerPlayer2: {fileID: 727313764}
+  pauseMenuObj: {fileID: 0}
 --- !u!4 &1950475250
 Transform:
   m_ObjectHideFlags: 0
