@@ -7,21 +7,21 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mat_floor 2
-  m_Shader: {fileID: -6465566751694194690, guid: 0dabdc49dd7d53649b22434d6728e15a,
-    type: 3}
-  m_ShaderKeywords: HARD_SHADING_ON
+  m_Name: Mat_floor 5
+  m_Shader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
+  m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 2050
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: b620e8e441b3ba44db247abfacfca3a8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -33,7 +33,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 54a6cf2b28c821844bdcb613c24e113c, type: 3}
+        m_Texture: {fileID: 2800000, guid: b620e8e441b3ba44db247abfacfca3a8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -66,9 +66,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - HARD_SHADING: 1
-    - Vector1_962926F1: 1.1
+    - Vector1_962926F1: 0.1
     - _AlphaClip: 0
-    - _BacklightAmount: 2.3
+    - _BacklightAmount: 2.5
     - _Blend: 0
     - _BumpScale: 1
     - _Cull: 2
@@ -89,7 +89,7 @@ Material:
     - _ReceiveShadows: 1
     - _SampleGI: 0
     - _Shininess: 0
-    - _Smoothness: 0.3
+    - _Smoothness: 0.1
     - _SmoothnessSource: 0
     - _SmoothnessTextureChannel: 0
     - _SpecSource: 0
@@ -99,12 +99,12 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    - _Color: {r: 0.77199996, g: 0.77199996, b: 0.77199996, a: 1}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _Specular: {r: 0, g: 0, b: 0, a: 0}
-    - _TextureTiling: {r: 0.1, g: 1, b: 0, a: 0}
+    - _TextureTiling: {r: 1, g: 1, b: 0, a: 0}
 --- !u!114 &1936096817387285684
 MonoBehaviour:
   m_ObjectHideFlags: 11
