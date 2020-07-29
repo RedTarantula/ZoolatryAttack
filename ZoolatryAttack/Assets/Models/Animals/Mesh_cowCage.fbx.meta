@@ -3,17 +3,7 @@ guid: 6344f461bc99524459a57b202be83881
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Cow.001
-    second: {fileID: 2100000, guid: f1fdc7fe630dd1644a9df17aeb92cc11, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: cowCage
-    second: {fileID: 2100000, guid: 0bccf22803eec89458f9641c589b538c, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 1
     materialName: 0

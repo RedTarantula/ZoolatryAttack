@@ -1,0 +1,153 @@
+fileFormatVersion: 2
+guid: 4823ba69b83bf834f9344c655b6e5bd5
+ModelImporter:
+  serializedVersion: 19300
+  internalIDToNameTable:
+  - first:
+      74: 7010073611170263670
+    second: sittedidle2
+  - first:
+      74: -4688490504854248575
+    second: Armature.001|Armature.001|Getting Hitted|Getting Hitted
+  - first:
+      74: 728566827114158057
+    second: Armature.001|Armature.001|HoldingCagesPose|HoldingCagesPose
+  - first:
+      74: -781695849394135103
+    second: Armature.001|Armature.001|Idle1|Idle1
+  - first:
+      74: 912997835330887737
+    second: Armature.001|Armature.001|Idle2|Idle2
+  - first:
+      74: -1606185185992071854
+    second: Armature.001|Armature.001|Reloading|Reloading
+  - first:
+      74: 7144980103506027225
+    second: Armature.001|Armature.001|Running|Running
+  - first:
+      74: -4511750985632886096
+    second: Armature.001|Armature.001|Shooting|Shooting
+  - first:
+      74: -2967233022364835632
+    second: Armature.001|Armature.001|Walking|Walking
+  - first:
+      74: 4588628652345359850
+    second: Armature.001|Armature|Getting Hitted|Getting Hitted
+  - first:
+      74: 6781903519473644171
+    second: Armature.001|Armature|HoldingCagesPose|HoldingCagesPose
+  - first:
+      74: -8113186662120526391
+    second: Armature.001|Armature|Idle1|Idle1
+  - first:
+      74: 8270812921306885682
+    second: Armature.001|Armature|Idle2|Idle2
+  - first:
+      74: -1375700405165825404
+    second: Armature.001|Armature|Reloading|Reloading
+  - first:
+      74: -7656063081758225806
+    second: Armature.001|Armature|Running2|Running2
+  - first:
+      74: -971416976653671893
+    second: Armature.001|Armature|Shooting|Shooting
+  - first:
+      74: -1876962440336682547
+    second: Armature.001|Armature|Walking|Walking
+  - first:
+      74: 2810776463312987735
+    second: Armature.001|sittedidle
+  - first:
+      74: 5941050380911058388
+    second: Armature.001|sittedidle2
+  externalObjects: {}
+  materials:
+    materialImportMode: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
